@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="feelings">
     <h1>Feelingsmotron</h1>
     <h3>Selected Feelings: {{ selectedFeeling }}</h3>
     <h3>API Feelings: {{ feeling }}</h3>
@@ -19,7 +19,7 @@ import _ from 'lodash';
 import axios from 'axios';
 
 export default {
-  name: 'HelloWorld',
+  name: 'Feelings',
   data() {
     return {
       selectedFeeling: 1,
@@ -39,8 +39,8 @@ export default {
         const vm = this;
         this.status = 'Updating Feelings...';
         axios.put('http://localhost:4000/api/v1/feelings', {
-          feelings: vm.selectedFeeling
-          })
+          feelings: vm.selectedFeeling,
+        })
           .then((response) => {
             vm.feeling = response.data.feelings;
             vm.status = 'Feeling Updated';
