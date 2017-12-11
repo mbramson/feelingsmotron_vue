@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <h1>Feelingsmotron</h1>
-    <h3>Selected Feeling: {{ selectedFeeling }}</h3>
-    <h3>Current Feeling: {{ feeling }}</h3>
+    <h3>Selected Feelings: {{ selectedFeeling }}</h3>
+    <h3>API Feelings: {{ feeling }}</h3>
     <ul>
       <li><button v-on:click="selectedFeeling = 1">1</button></li>
       <li><button v-on:click="selectedFeeling = 2">2</button></li>
@@ -16,6 +16,8 @@
 
 <script>
 import _ from 'lodash';
+import axios from 'axios';
+
 export default {
   name: 'HelloWorld',
   data() {
@@ -26,19 +28,31 @@ export default {
     };
   },
   watch: {
-    selectedFeeling: function (newFeeling) {
+    selectedFeeling: function selectedFeelingWatch() {
       this.status = 'Waiting for you to settle on a feeling';
       this.setFeeling();
     },
   },
   methods: {
     setFeeling: _.debounce(
-      function () {
+      function setFeelings() {
         this.status = '';
         this.feeling = this.selectedFeeling;
       },
       1000, // milliseconds to wait
     ),
+  },
+  mounted: function afterMount() {
+    const vm = this;
+    this.status = 'Retrieving Feelings...';
+    axios.get('http://localhost:4000/api/v1/feelings')
+      .then((response) => {
+        vm.feeling = response.data.feelings;
+        vm.status = '';
+      })
+      .catch((error) => {
+        vm.status = `Error! Could not retrieve Feelings from API: ${error}`;
+      });
   },
 };
 </script>
