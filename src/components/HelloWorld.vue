@@ -36,8 +36,18 @@ export default {
   methods: {
     setFeeling: _.debounce(
       function setFeelings() {
-        this.status = '';
-        this.feeling = this.selectedFeeling;
+        const vm = this;
+        this.status = 'Updating Feelings...';
+        axios.put('http://localhost:4000/api/v1/feelings', {
+          feelings: vm.selectedFeeling
+          })
+          .then((response) => {
+            vm.feeling = response.data.feelings;
+            vm.status = 'Feeling Updated';
+          })
+          .catch((error) => {
+            vm.status = `Error! Could not retrieve Feelings from API: ${error}`;
+          });
       },
       1000, // milliseconds to wait
     ),
@@ -48,7 +58,7 @@ export default {
     axios.get('http://localhost:4000/api/v1/feelings')
       .then((response) => {
         vm.feeling = response.data.feelings;
-        vm.status = '';
+        vm.status = 'Feelings Loaded';
       })
       .catch((error) => {
         vm.status = `Error! Could not retrieve Feelings from API: ${error}`;
