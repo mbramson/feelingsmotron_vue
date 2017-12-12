@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <app-nav></app-nav>
     <h1>Feelingsmotron</h1>
     <input v-model="email" placeholder="email">
     <input type="password" v-model="password" placeholder="password">
@@ -9,11 +10,15 @@
 </template>
 
 <script>
-
 import axios from 'axios';
+import AppNav from './AppNav';
+import { setJwtToken } from '../utils/auth';
 
 export default {
   name: 'Login',
+  components: {
+    AppNav,
+  },
   data() {
     return {
       email: '',
@@ -32,7 +37,9 @@ export default {
         } },
         )
         .then((response) => {
+          setJwtToken(response.data.jwt);
           this.status = `Logged in as ${response.data.user.name}`;
+          this.$router.push('/');
         })
         .catch((error) => {
           if (error.response.status === 401) {

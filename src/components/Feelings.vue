@@ -1,6 +1,7 @@
 <template>
   <div class="feelings">
-    <h1>Feelingsmotron</h1>
+    <app-nav></app-nav>
+    <h1 class="text-center">Feelingsmotron</h1>
     <h3>Selected Feelings: {{ selectedFeeling }}</h3>
     <h3>API Feelings: {{ feeling }}</h3>
     <ul>
@@ -17,9 +18,13 @@
 <script>
 import _ from 'lodash';
 import axios from 'axios';
+import AppNav from './AppNav';
 
 export default {
   name: 'Feelings',
+  components: {
+    AppNav,
+  },
   data() {
     return {
       selectedFeeling: 1,
