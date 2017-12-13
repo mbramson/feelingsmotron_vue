@@ -1,14 +1,14 @@
 <template>
-  <div class="login">
+  <div class="signup">
     <app-nav></app-nav>
     <h1>Feelingsmotron</h1>
     <input v-model="email" placeholder="email">
     <br>
+    <input v-model="name" placeholder="name">
+    <br>
     <input type="password" v-model="password" placeholder="password">
     <br>
-    <button v-on:click="submitLogin">Submit</button>
-    <br>
-    <router-link to="/signup"> Not a member? Sign up! </router-link>
+    <button v-on:click="submitSignup">Submit</button>
     <h4>{{ status}}</h4>
   </div>
 </template>
@@ -19,38 +19,36 @@ import AppNav from './AppNav';
 import { setJwtToken } from '../utils/auth';
 
 export default {
-  name: 'Login',
+  name: 'Signup',
   components: {
     AppNav,
   },
   data() {
     return {
       email: '',
+      name: '',
       password: '',
       status: '',
     };
   },
   methods: {
-    submitLogin: function submitLogin() {
-      this.status = 'Logging in...';
+    submitSignup: function submitSignup() {
+      this.status = 'Submitting...';
       axios.post(
-        'http://localhost:4000/api/v1/sessions',
+        'http://localhost:4000/api/v1/registrations',
         { user: {
           email: this.email,
+          name: this.name,
           password: this.password,
         } },
         )
         .then((response) => {
           setJwtToken(response.data.jwt);
-          this.status = `Logged in as ${response.data.user.name}`;
+          this.status = 'Signup Successful!';
           this.$router.push('/');
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            this.status = 'Invalid Login Credentials';
-          } else {
-            this.status = `Login failed with error: ${error}`;
-          }
+          this.status = `Signup failed with error: ${error}`;
         });
     },
   },
