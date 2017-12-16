@@ -7,10 +7,10 @@ const state = {
 };
 
 const getters = {
-  jwt: state => state.jwt,
-  user_name: state => state.user_name,
-  user_id: state => state.user_id,
-  isLoggedIn: state => !!state.jwt,
+  jwt: () => state.jwt,
+  user_name: () => state.user_name,
+  user_id: () => state.user_id,
+  isLoggedIn: () => !!state.jwt,
 };
 
 const actions = {
@@ -23,13 +23,13 @@ const actions = {
 };
 
 const mutations = {
-  [types.LOGIN_USER](state, user) {
+  [types.LOGIN_USER](storeState, user) {
     state.jwt = user.jwt;
     state.user_name = user.name;
     state.user_id = user.id;
   },
 
-  [types.LOGOUT](state) {
+  [types.LOGOUT]() {
     state.jwt = null;
     state.user_name = null;
     state.user_id = null;

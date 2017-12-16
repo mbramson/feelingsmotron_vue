@@ -3,9 +3,16 @@ import Router from 'vue-router';
 import Feelings from '@/components/Feelings';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
-import { requireAuth } from '../utils/auth';
 
 Vue.use(Router);
+
+const redirectIfNotAuthorized = (to, from, next) => {
+  if (this.a.app.$store && this.a.app.$store.getters.isLoggedIn) {
+    next();
+  } else {
+    next('/login');
+  }
+};
 
 export default new Router({
   mode: 'history',
@@ -23,7 +30,7 @@ export default new Router({
     {
       path: '/',
       name: 'Feelings',
-      beforeEnter: requireAuth,
+      beforeEnter: redirectIfNotAuthorized,
       component: Feelings,
     },
   ],
