@@ -5,28 +5,33 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <button class="btn btn-danger log" @click="handleLogout()">Log out </button>
-        <button class="btn btn-info log" @click="handleLogin()">Log In</button>
+        <button v-if="isLoggedIn" class="btn btn-danger log" @click="handleLogout()">Log out </button>
+        <button v-if="isLoggedIn" class="btn btn-info log" @click="handleLogin()">Log In</button>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { clearJwtToken } from '../utils/auth';
 
 export default {
   name: 'app-nav',
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+      user_name: 'user_name',
+    }),
+  },
   methods: {
     handleLogin() {
       this.$router.push('Login');
     },
     handleLogout() {
       clearJwtToken();
+      this.$store.dispatch('logout');
       this.$router.push('Login');
-    },
-    isLoggedIn() {
-      return false;
     },
   },
 };
