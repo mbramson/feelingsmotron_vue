@@ -15,7 +15,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { clearJwtToken } from '../utils/auth';
 
 export default {
   name: 'app-nav',
@@ -30,7 +29,6 @@ export default {
       this.$router.push('Login');
     },
     handleLogout() {
-      clearJwtToken();
       this.$store.dispatch('logout');
       this.$router.push('Login');
     },
