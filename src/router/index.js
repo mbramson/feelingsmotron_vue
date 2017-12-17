@@ -6,11 +6,11 @@ import Login from '@/components/Login';
 import Signup from '@/components/Signup';
 import store from '../store';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 Vue.use(Router);
 
 const redirectIfNotAuthorized = (to, from, next) => {
-  const loggedIn = store.getters.isLoggedIn;
+  const loggedIn = !!store.state.auth.jwt;
   if (loggedIn) {
     next();
   } else {

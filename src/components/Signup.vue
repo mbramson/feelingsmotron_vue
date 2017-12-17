@@ -16,7 +16,6 @@
 <script>
 import axios from 'axios';
 import AppNav from './AppNav';
-import { setJwtToken } from '../utils/auth';
 
 export default {
   name: 'Signup',
@@ -43,7 +42,12 @@ export default {
         } },
         )
         .then((response) => {
-          setJwtToken(response.data.jwt);
+          const userData = {
+            jwt: response.data.jwt,
+            name: response.data.user.name,
+            id: response.data.user.id,
+          };
+          this.$store.dispatch('login', userData);
           this.status = 'Signup Successful!';
           this.$router.push('/');
         })

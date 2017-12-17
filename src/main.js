@@ -14,4 +14,8 @@ new Vue({
   store,
   template: '<App/>',
   components: { App },
+  mounted: function () {
+    const auth = this.$store.state.auth;
+    this.$store.dispatch('pull_auth_from_storage', auth);
+  },
 });

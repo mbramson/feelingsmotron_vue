@@ -16,7 +16,6 @@
 <script>
 import axios from 'axios';
 import AppNav from './AppNav';
-import { setJwtToken } from '../utils/auth';
 
 export default {
   name: 'Login',
@@ -41,7 +40,6 @@ export default {
         } },
         )
         .then((response) => {
-          setJwtToken(response.data.jwt);
           const userData = {
             jwt: response.data.jwt,
             name: response.data.user.name,

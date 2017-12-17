@@ -20,6 +20,9 @@ const actions = {
   logout({ commit }) {
     commit(types.LOGOUT);
   },
+  pull_auth_from_storage({ commit }, auth) {
+    commit(types.PULL_AUTH_FROM_STORAGE, auth);
+  },
 };
 
 const mutations = {
@@ -27,12 +30,27 @@ const mutations = {
     state.jwt = user.jwt;
     state.user_name = user.name;
     state.user_id = user.id;
+    storeState.jwt = user.jwt;
+    storeState.user_name = user.name;
+    storeState.user_id = user.id;
   },
 
-  [types.LOGOUT]() {
+  [types.LOGOUT](storeState) {
     state.jwt = null;
     state.user_name = null;
     state.user_id = null;
+    storeState.jwt = null;
+    storeState.user_name = null;
+    storeState.user_id = null;
+  },
+
+  [types.PULL_AUTH_FROM_STORAGE](storeState, auth) {
+    state.jwt = auth.jwt;
+    state.user_name = auth.user_name;
+    state.user_id = auth.user_id;
+    storeState.jwt = auth.jwt;
+    storeState.user_name = auth.user_name;
+    storeState.user_id = auth.user_id;
   },
 };
 
