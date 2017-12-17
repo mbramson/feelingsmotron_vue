@@ -52,7 +52,11 @@ export default {
           this.$router.push('/');
         })
         .catch((error) => {
-          this.status = `Signup failed with error: ${error}`;
+          if (error.response.status === 409) {
+            this.status = 'User with that email already exists';
+          } else {
+            this.status = `Login failed with error: ${error}`;
+          }
         });
     },
   },
