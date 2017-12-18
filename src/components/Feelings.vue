@@ -29,8 +29,8 @@ export default {
   },
   data() {
     return {
-      selectedFeeling: 1,
-      feeling: 1,
+      selectedFeeling: null,
+      feeling: null,
       status: '',
     };
   },
