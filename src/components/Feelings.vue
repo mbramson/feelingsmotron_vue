@@ -20,6 +20,8 @@ import _ from 'lodash';
 import axios from 'axios';
 import AppNav from './AppNav';
 
+const feelingsUrl = 'http://localhost:4000/api/v1/feelings'
+
 export default {
   name: 'Feelings',
   components: {
@@ -32,6 +34,16 @@ export default {
       status: '',
     };
   },
+  computed: {
+    headers: function() {
+      return this.$store.getters.requestHeaders
+    },
+    update_body: function() {
+      return {
+        feelings: this.selectedFeeling,
+      };
+    },
+  },
   watch: {
     selectedFeeling: function selectedFeelingWatch() {
       this.status = 'Waiting for you to settle on a feeling';
@@ -43,9 +55,7 @@ export default {
       function setFeelings() {
         const vm = this;
         this.status = 'Updating Feelings...';
-        axios.put('http://localhost:4000/api/v1/feelings', {
-          feelings: vm.selectedFeeling,
-        })
+        axios.put(feelingsUrl, this.update_body, this.headers)
           .then((response) => {
             vm.feeling = response.data.feelings;
             vm.status = 'Feeling Updated';
@@ -60,7 +70,7 @@ export default {
   mounted: function afterMount() {
     const vm = this;
     this.status = 'Retrieving Feelings...';
-    axios.get('http://localhost:4000/api/v1/feelings')
+    axios.get(feelingsUrl, this.headers)
       .then((response) => {
         vm.feeling = response.data.feelings;
         vm.status = 'Feelings Loaded';

@@ -7,10 +7,15 @@ const state = {
 };
 
 const getters = {
-  jwt: () => state.jwt,
-  user_name: () => state.user_name,
-  user_id: () => state.user_id,
-  isLoggedIn: () => !!state.jwt,
+  jwt: state => state.jwt,
+  user_name: state => state.user_name,
+  user_id: state => state.user_id,
+  isLoggedIn: state => !!state.jwt,
+  requestHeaders: state => ({
+    headers: {
+      Authorization: `Bearer ${state.jwt}`,
+    },
+  }),
 };
 
 const actions = {
