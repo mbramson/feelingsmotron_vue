@@ -55,7 +55,7 @@ export default {
       function setFeelings() {
         const vm = this;
         this.status = 'Updating Feelings...';
-        axios.put(feelingsUrl, this.update_body, this.headers)
+        axios.post(feelingsUrl, this.update_body, this.headers)
           .then((response) => {
             vm.feeling = response.data.feelings;
             vm.status = 'Feeling Updated';
