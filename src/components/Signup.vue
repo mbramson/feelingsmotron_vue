@@ -2,14 +2,16 @@
   <div class="signup">
     <app-nav></app-nav>
     <h1>Feelingsmotron</h1>
-    <input v-model="email" placeholder="email">
-    <br>
-    <input v-model="name" placeholder="name">
-    <br>
-    <input type="password" v-model="password" placeholder="password">
-    <br>
-    <button v-on:click="submitSignup">Submit</button>
-    <h4>{{ status}}</h4>
+    <form>
+      <input v-model="email" placeholder="email">
+      <br>
+      <input v-model="name" placeholder="name">
+      <br>
+      <input type="password" v-model="password" placeholder="password">
+      <br>
+      <button v-on:click="submitSignup">Submit</button>
+      <h4>{{ status}}</h4>
+    </form>
   </div>
 </template>
 

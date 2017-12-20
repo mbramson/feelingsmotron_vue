@@ -1,15 +1,25 @@
 <template>
   <div class="login">
     <app-nav></app-nav>
-    <h1>Feelingsmotron</h1>
-    <input v-model="email" placeholder="email">
-    <br>
-    <input type="password" v-model="password" placeholder="password">
-    <br>
-    <button v-on:click="submitLogin">Submit</button>
-    <br>
-    <router-link to="/signup"> Not a member? Sign up! </router-link>
-    <h4>{{ status}}</h4>
+    <div class="row centered-form center-block">
+      <div class="container col-xs-6 col-xs-offset-3">
+        <h1>Feelingsmotron</h1>
+        <form>
+          <div class="form-group">
+            <label for="emailInput">Email</label>
+            <input type="email" class="form-control" id="emailInput" v-model="email" placeholder="email">
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Password</label>
+            <input type="password" class="form-control" id="form-group" v-model="password" placeholder="password">
+          </div>
+          <button type="submit" class="btn btn-primary" v-on:click="submitLogin">Submit</button>
+          <br>
+          <router-link to="/signup"> Not a member? Sign up! </router-link>
+          <h4>{{ status}}</h4>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
