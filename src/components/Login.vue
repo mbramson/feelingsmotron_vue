@@ -2,8 +2,8 @@
   <div class="login">
     <app-nav></app-nav>
     <div class="row centered-form center-block">
-      <div class="container col-xs-6 col-xs-offset-3">
-        <h1>Feelingsmotron</h1>
+      <div class="container col-xs-4 col-xs-offset-4">
+        <h1>Login</h1>
         <form>
           <div class="form-group">
             <label for="emailInput">Email</label>
