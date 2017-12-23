@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Feelings from '@/components/Feelings';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
+import Profile from '@/components/Profile';
 import store from '../store';
 
 Vue.use(Vuex);
@@ -36,6 +37,12 @@ export default new Router({
       name: 'Feelings',
       beforeEnter: redirectIfNotAuthorized,
       component: Feelings,
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      beforeEnter: redirectIfNotAuthorized,
+      component: Profile,
     },
   ],
 });

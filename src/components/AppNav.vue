@@ -5,7 +5,7 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <button v-if="isLoggedIn" class="btn btn-primary log">{{ user_name }}</button>
+        <button v-if="isLoggedIn" class="btn btn-primary log" @click="handleProfile()">{{ user_name }}</button>
         <button v-if="isLoggedIn" class="btn btn-danger log" @click="handleLogout()">Log out </button>
         <button v-if="!isLoggedIn" class="btn btn-info log" @click="handleLogin()">Log In</button>
       </li>
@@ -25,6 +25,9 @@ export default {
     }),
   },
   methods: {
+    handleProfile() {
+      this.$router.push('profile');
+    },
     handleLogin() {
       this.$router.push('Login');
     },

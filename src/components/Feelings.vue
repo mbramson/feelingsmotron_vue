@@ -2,15 +2,23 @@
   <div class="feelings">
     <app-nav></app-nav>
     <h1 class="text-center">Feelingsmotron</h1>
-    <h3>Selected Feelings: {{ selectedFeeling }}</h3>
-    <h3>API Feelings: {{ feeling }}</h3>
-    <ul>
-      <li><button v-on:click="selectedFeeling = 1">1</button></li>
-      <li><button v-on:click="selectedFeeling = 2">2</button></li>
-      <li><button v-on:click="selectedFeeling = 3">3</button></li>
-      <li><button v-on:click="selectedFeeling = 4">4</button></li>
-      <li><button v-on:click="selectedFeeling = 5">5</button></li>
-    </ul>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 1, active: selectedFeeling === 1 }">
+        <input type="radio" name="options" id="option1" autocomplete="off" @click="selectedFeeling = 1" checked>1
+      </label>
+      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 2, active: selectedFeeling === 2 }">
+        <input type="radio" name="options" id="option2" autocomplete="off" @click="selectedFeeling = 2" checked>2
+      </label>
+      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 3, active: selectedFeeling === 3 }">
+        <input type="radio" name="options" id="option3" autocomplete="off" @click="selectedFeeling = 3" checked>3
+      </label>
+      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 4, active: selectedFeeling === 4 }">
+        <input type="radio" name="options" id="option4" autocomplete="off" @click="selectedFeeling = 4" checked>4
+      </label>
+      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 5, active: selectedFeeling === 5 }">
+        <input type="radio" name="options" id="option5" autocomplete="off" @click="selectedFeeling = 5" checked>5
+      </label>
+    </div>
     <h4>{{ status}}</h4>
   </div>
 </template>
