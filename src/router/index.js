@@ -5,6 +5,7 @@ import Feelings from '@/components/Feelings';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
 import Profile from '@/components/Profile';
+import ProfileUpdate from '@/components/ProfileUpdate';
 import store from '../store';
 
 Vue.use(Vuex);
@@ -43,6 +44,12 @@ export default new Router({
       name: 'Profile',
       beforeEnter: redirectIfNotAuthorized,
       component: Profile,
+    },
+    {
+      path: '/profile/update',
+      name: 'ProfileUpdate',
+      beforeEnter: redirectIfNotAuthorized,
+      component: ProfileUpdate,
     },
   ],
 });

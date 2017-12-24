@@ -28,6 +28,9 @@ const actions = {
   pull_auth_from_storage({ commit }, auth) {
     commit(types.PULL_AUTH_FROM_STORAGE, auth);
   },
+  updateCurrentUserName({ commit }, name) {
+    commit(types.UPDATE_CURRENT_USER_NAME, name);
+  },
 };
 
 const mutations = {
@@ -56,6 +59,11 @@ const mutations = {
     storeState.jwt = auth.jwt;
     storeState.user_name = auth.user_name;
     storeState.user_id = auth.user_id;
+  },
+
+  [types.UPDATE_CURRENT_USER_NAME](storeState, name) {
+    storeState.user_name = name;
+    state.user_name = name;
   },
 };
 

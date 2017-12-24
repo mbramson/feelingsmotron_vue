@@ -26,14 +26,14 @@ export default {
   },
   methods: {
     handleProfile() {
-      this.$router.push('profile');
+      this.$router.push('/profile');
     },
     handleLogin() {
-      this.$router.push('Login');
+      this.$router.push('/login');
     },
     handleLogout() {
       this.$store.dispatch('logout');
-      this.$router.push('Login');
+      this.$router.push('/login');
     },
   },
 };

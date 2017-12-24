@@ -16,6 +16,7 @@
           <dt>Email</dt>
           <dd>{{ email }}</dd>
           <br>
+          <router-link to="/profile/update">Update Profile</router-link>
         </template>
       </div>
     </div>
