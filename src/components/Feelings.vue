@@ -1,25 +1,33 @@
 <template>
   <div class="feelings">
     <app-nav></app-nav>
-    <h1 class="text-center">Feelingsmotron</h1>
-    <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 1, active: selectedFeeling === 1 }">
-        <input type="radio" name="options" id="option1" autocomplete="off" @click="selectedFeeling = 1" checked>1
-      </label>
-      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 2, active: selectedFeeling === 2 }">
-        <input type="radio" name="options" id="option2" autocomplete="off" @click="selectedFeeling = 2" checked>2
-      </label>
-      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 3, active: selectedFeeling === 3 }">
-        <input type="radio" name="options" id="option3" autocomplete="off" @click="selectedFeeling = 3" checked>3
-      </label>
-      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 4, active: selectedFeeling === 4 }">
-        <input type="radio" name="options" id="option4" autocomplete="off" @click="selectedFeeling = 4" checked>4
-      </label>
-      <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 5, active: selectedFeeling === 5 }">
-        <input type="radio" name="options" id="option5" autocomplete="off" @click="selectedFeeling = 5" checked>5
-      </label>
+    <div class="container col-xs-4 col-xs-offset-4">
+      <h1 class="text-center">Feelingsmotron</h1>
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 1, active: selectedFeeling === 1 }">
+          <input type="radio" name="options" id="option1" autocomplete="off" @click="selectedFeeling = 1" checked>1
+        </label>
+        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 2, active: selectedFeeling === 2 }">
+          <input type="radio" name="options" id="option2" autocomplete="off" @click="selectedFeeling = 2" checked>2
+        </label>
+        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 3, active: selectedFeeling === 3 }">
+          <input type="radio" name="options" id="option3" autocomplete="off" @click="selectedFeeling = 3" checked>3
+        </label>
+        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 4, active: selectedFeeling === 4 }">
+          <input type="radio" name="options" id="option4" autocomplete="off" @click="selectedFeeling = 4" checked>4
+        </label>
+        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 5, active: selectedFeeling === 5 }">
+          <input type="radio" name="options" id="option5" autocomplete="off" @click="selectedFeeling = 5" checked>5
+        </label>
+      </div>
+      <br>
+      <br>
+      <div class="form-group">
+        <label for="commentInput">Comment</label>
+        <textarea class="form-control" id="commentInput" v-model="comment" rows="3" placeholder="Leave a comment (optional)"></textarea>
+      </div>
+      <dd>{{ status}}</dd>
     </div>
-    <h4>{{ status}}</h4>
   </div>
 </template>
 
@@ -40,6 +48,7 @@ export default {
       selectedFeeling: null,
       feeling: null,
       status: '',
+      comment: '',
     };
   },
   computed: {
