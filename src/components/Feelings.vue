@@ -3,7 +3,7 @@
     <app-nav></app-nav>
     <div class="container col-xs-4 col-xs-offset-4">
       <h1 class="text-center">Feelingsmotron</h1>
-      <div class="btn-group" data-toggle="buttons">
+      <div id="feeling-selector" class="btn-group" data-toggle="buttons">
         <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 1, active: selectedFeeling === 1 }">
           <input type="radio" name="options" id="option1" autocomplete="off" @click="selectedFeeling = 1" checked>1
         </label>
@@ -20,12 +20,11 @@
           <input type="radio" name="options" id="option5" autocomplete="off" @click="selectedFeeling = 5" checked>5
         </label>
       </div>
-      <br>
-      <br>
-      <div class="form-group">
+      <div id="comment-field" class="form-group">
         <label for="commentInput">Comment</label>
         <textarea class="form-control" id="commentInput" v-model="comment" rows="3" placeholder="Leave a comment (optional)"></textarea>
       </div>
+      <button id="submit-button" class="btn btn-primary" v-on:click="submitFeelings">Submit</button>
       <dd>{{ status}}</dd>
     </div>
   </div>
@@ -68,6 +67,9 @@ export default {
     },
   },
   methods: {
+    submitFeelings: function submitFeelings() {
+      return null;
+    },
     setFeeling: _.debounce(
       function setFeelings() {
         const vm = this;
@@ -103,6 +105,16 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+#comment-field {
+  margin-top: 20px;
+}
+#feeling-selector {
+  margin-top: 20px;
+}
+#submit-button{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 ul {
   list-style-type: none;
