@@ -21,8 +21,7 @@
         </label>
       </div>
       <div id="comment-field" class="form-group">
-        <label for="commentInput">Comment</label>
-        <textarea class="form-control" id="commentInput" v-model="comment" rows="3" placeholder="Leave a comment (optional)"></textarea>
+        <textarea class="form-control" aria-label="comment" id="commentInput" v-model="comment" rows="3" placeholder="Leave a comment (optional)"></textarea>
       </div>
       <button id="submit-button" class="btn btn-primary" v-on:click="submitFeelings">Submit</button>
       <dd>{{ status}}</dd>
@@ -57,21 +56,13 @@ export default {
     update_body: function() {
       return {
         feelings: this.selectedFeeling,
+        comment: this.comment,
       };
     },
   },
-  watch: {
-    selectedFeeling: function selectedFeelingWatch() {
-      this.status = 'Waiting for you to settle on a feeling';
-      this.setFeeling();
-    },
-  },
   methods: {
-    submitFeelings: function submitFeelings() {
-      return null;
-    },
-    setFeeling: _.debounce(
-      function setFeelings() {
+    submitFeelings: _.throttle(
+      function submitFeelings() {
         const vm = this;
         this.status = 'Updating Feelings...';
         axios.post(feelingsUrl, this.update_body, this.headers)
@@ -83,7 +74,8 @@ export default {
             vm.status = `Error! Could not retrieve Feelings from API: ${error}`;
           });
       },
-      1000, // milliseconds to wait
+      1000, // milliseconds to throttle
+      {'leading': true, 'trailing': true, },
     ),
   },
   mounted: function afterMount() {
@@ -107,7 +99,7 @@ h1, h2 {
   font-weight: normal;
 }
 #comment-field {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 #feeling-selector {
   margin-top: 20px;
