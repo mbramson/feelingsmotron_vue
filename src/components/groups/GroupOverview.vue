@@ -62,7 +62,11 @@ export default {
       })
       .catch((error) => {
         vm.status = 'error';
-        vm.error_message = `Error! Could not retrieve Group: ${error}`;
+        if (error.response.status === 404) {
+          vm.error_message = 'Group could not be found'
+        } else {
+          vm.error_message = `Error retrieving Group: ${error}`;
+        }
       });
   },
 };
