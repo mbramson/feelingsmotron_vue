@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Router from 'vue-router';
 import Feelings from '@/components/Feelings';
+import GroupIndex from '@/components/groups/GroupIndex';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
 import Profile from '@/components/Profile';
@@ -50,6 +51,12 @@ export default new Router({
       name: 'ProfileUpdate',
       beforeEnter: redirectIfNotAuthorized,
       component: ProfileUpdate,
+    },
+    {
+      path: '/groups',
+      name: 'GroupIndex',
+      beforeEnter: redirectIfNotAuthorized,
+      component: GroupIndex,
     },
   ],
 });
