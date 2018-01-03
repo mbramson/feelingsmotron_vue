@@ -4,6 +4,7 @@
     <dd v-if="isError">{{ error_message }}</dd>
     <div v-if="isLoaded" class="container col-xs-4 col-xs-offset-4">
       <h1>{{ name }}</h1>
+      <dd>{{ description }}</dd>
       <dt>Owner</dt>
       <dd>{{ owner.name }}</dd>
       <div class="row" v-for="user in users">
@@ -27,6 +28,7 @@ export default {
   data() {
     return {
       name: '',
+      description: '',
       owner: null,
       users: [],
       status: 'notRequested',
@@ -56,6 +58,7 @@ export default {
     axios.get(this.groupUrl, this.headers)
       .then((response) => {
         vm.name = response.data.name;
+        vm.description = response.data.description;
         vm.owner = response.data.owner;
         vm.users = response.data.users;
         vm.status = 'success';
