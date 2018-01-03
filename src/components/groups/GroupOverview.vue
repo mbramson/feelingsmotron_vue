@@ -2,14 +2,23 @@
   <div class="group-overview">
     <app-nav></app-nav>
     <dd v-if="isError">{{ error_message }}</dd>
-    <div v-if="isLoaded" class="container col-xs-4 col-xs-offset-4">
+    <div v-if="isLoaded" class="container col-xs-6 col-xs-offset-3">
       <h1>{{ name }}</h1>
       <dd>{{ description }}</dd>
       <dt>Owner</dt>
       <dd>{{ owner.name }}</dd>
-      <div class="row" v-for="user in users">
-        {{ user.name }}
-      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Members</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in users">
+            <th scope="row">{{ user.name }}</th>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
