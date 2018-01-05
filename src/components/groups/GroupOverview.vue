@@ -5,6 +5,7 @@
     <div v-if="isLoaded" class="container col-xs-6 col-xs-offset-3">
       <h1>{{ name }}</h1>
       <dd>{{ description }}</dd>
+      <br>
       <dt>Owner</dt>
       <dd>{{ owner.name }}</dd>
       <table class="table table-hover">
@@ -26,8 +27,6 @@
 <script>
 import axios from 'axios';
 import AppNav from '../AppNav';
-
-const groupUrl = 'http://localhost:4000/api/v1/groups'
 
 export default {
   name: 'GroupOverview',

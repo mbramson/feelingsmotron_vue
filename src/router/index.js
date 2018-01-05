@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Feelings from '@/components/Feelings';
 import GroupIndex from '@/components/groups/GroupIndex';
 import GroupOverview from '@/components/groups/GroupOverview';
+import GroupCreate from '@/components/groups/GroupCreate';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
 import Profile from '@/components/Profile';
@@ -58,6 +59,12 @@ export default new Router({
       name: 'GroupIndex',
       beforeEnter: redirectIfNotAuthorized,
       component: GroupIndex,
+    },
+    {
+      path: '/create_group',
+      name: 'GroupCreate',
+      beforeEnter: redirectIfNotAuthorized,
+      component: GroupCreate,
     },
     {
       path: '/groups/:id',
