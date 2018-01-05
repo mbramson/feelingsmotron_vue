@@ -1,12 +1,23 @@
 <template>
   <div class="group-index">
     <app-nav></app-nav>
-    <div class="container col-xs-4 col-xs-offset-4">
+    <div class="container-fluid">
       <h1>All Groups</h1>
       <h4 v-if="noGroupsFound">No groups were found...</h4>
-      <div class="row" v-for="group in groups">
-        {{ group.name }}
-      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Group</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="group in groups">
+            <th scope="row">{{ group.name }}</th>
+            <th scope="row">{{ group.description }}</th>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
