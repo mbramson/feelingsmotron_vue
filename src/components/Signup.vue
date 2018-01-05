@@ -1,6 +1,7 @@
 <template>
   <div class="signup">
     <app-nav></app-nav>
+    <h4 v-if="isError">{{ error_message }}</h4>
     <div class="row centered-form center-block">
       <div class="container col-xs-4 col-xs-offset-4">
         <h1>Sign up</h1>
@@ -8,18 +9,20 @@
           <div class="form-group">
             <label for="emailInput">Email</label>
             <input type="email" class="form-control" id="emailInput" v-model="email" placeholder="email">
+            <div class="text-danger top-buffer">{{ emailError }}</div>
           </div>
           <div class="form-group">
             <label for="nameInput">Name</label>
             <input class="form-control" id="nameInput" v-model="name" placeholder="name">
+            <div class="text-danger top-buffer">{{ nameError }}</div>
           </div>
           <div class="form-group">
             <label for="passwordInput">Password</label>
             <input type="password" class="form-control" id="passwordInput" v-model="password" placeholder="password">
+            <div class="text-danger top-buffer">{{ passwordError }}</div>
           </div>
           <br>
-          <button class="btn btn-primary" v-on:click="submitSignup">Submit</button>
-          <h4>{{ status}}</h4>
+          <button class="btn btn-primary" v-on:click.prevent="submitSignup">Submit</button>
         </form>
       </div>
     </div>
@@ -29,6 +32,8 @@
 <script>
 import axios from 'axios';
 import AppNav from './AppNav';
+
+const registrationUrl = 'http://localhost:4000/api/v1/registrations'
 
 export default {
   name: 'Signup',
@@ -41,18 +46,37 @@ export default {
       name: '',
       password: '',
       status: '',
+      error_message: '',
+      response_errors: null,
     };
+  },
+  computed: {
+    nameError: function() {
+      return ((this.response_errors || {}).name || [])[0]
+    },
+    emailError: function() {
+      return ((this.response_errors || {}).email || [])[0]
+    },
+    passwordError: function() {
+      return ((this.response_errors || {}).password || [])[0]
+    },
+    isError: function() {
+      return this.status === 'error'
+    },
+    requestBody: function() {
+      return { user: {
+        email: this.email,
+        name: this.name,
+        password: this.password,
+      } }
+    },
   },
   methods: {
     submitSignup: function submitSignup() {
-      this.status = 'Submitting...';
+      this.status = 'submitting';
       axios.post(
-        'http://localhost:4000/api/v1/registrations',
-        { user: {
-          email: this.email,
-          name: this.name,
-          password: this.password,
-        } },
+        registrationUrl,
+        this.requestBody,
         )
         .then((response) => {
           const userData = {
@@ -61,14 +85,15 @@ export default {
             id: response.data.user.id,
           };
           this.$store.dispatch('login', userData);
-          this.status = 'Signup Successful!';
+          this.status = 'success';
           this.$router.push('/');
         })
         .catch((error) => {
-          if (error.response.status === 409) {
-            this.status = 'User with that email already exists';
+          this.status = 'error'
+          if ([409, 422].includes(error.response.status)) {
+            this.response_errors = error.response.data.errors
           } else {
-            this.status = `Login failed with error: ${error}`;
+            this.error_message = `Login failed with error: ${error}`;
           }
         });
     },
@@ -78,6 +103,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.top-buffer {
+  margin-top:10px;
+}
 h1, h2 {
   font-weight: normal;
 }

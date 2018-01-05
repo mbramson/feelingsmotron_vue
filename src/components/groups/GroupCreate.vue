@@ -79,7 +79,6 @@ export default {
           if ([409, 422].includes(error.response.status)) {
             this.response_errors = error.response.data.errors
           } else {
-            console.log(error.response)
             this.error_message = `Error creating group: ${error}`;
           }
         });
