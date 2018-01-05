@@ -7,16 +7,15 @@
         <form>
           <div class="form-group">
             <label for="emailInput">Email</label>
-            <input type="email" class="form-control" id="emailInput" v-model="email" placeholder="email">
+            <input autocomplete="email" class="form-control" id="emailInput" v-model="email" placeholder="email">
           </div>
           <div class="form-group">
             <label for="passwordInput">Password</label>
-            <input type="password" class="form-control" id="form-group" v-model="password" placeholder="password">
+            <input type="password" autocomplete="current-password" class="form-control" id="form-group" v-model="password" placeholder="password">
           </div>
-          <button type="submit" class="btn btn-primary" v-on:click="submitLogin">Submit</button>
+          <button type="submit" class="btn btn-primary" v-on:click.prevent="submitLogin">Submit</button>
           <br>
           <router-link to="/signup"> Not a member? Sign up! </router-link>
-          <h4>{{ status}}</h4>
         </form>
       </div>
     </div>

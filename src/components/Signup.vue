@@ -18,7 +18,7 @@
           </div>
           <div class="form-group">
             <label for="passwordInput">Password</label>
-            <input type="password" class="form-control" id="passwordInput" v-model="password" placeholder="password">
+            <input type="password" autocomplete="new-password" class="form-control" id="passwordInput" v-model="password" placeholder="password">
             <div class="text-danger top-buffer">{{ passwordError }}</div>
           </div>
           <br>
