@@ -51,7 +51,7 @@ export default {
       return { group: {
         name: this.name,
         description: this.description,
-      }}
+      } }
     },
     isError: function() {
       return this.status === 'error'
