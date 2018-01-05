@@ -1,29 +1,30 @@
 <template>
   <div class="profileUpdate">
     <app-nav></app-nav>
+    <h4 v-if="isError">{{ error_message }}</h4>
     <div class="row centered-form center-block">
       <div class="container col-xs-4 col-xs-offset-4">
         <template v-if="isRequestingProfile">
           <h1>Loading...</h1>
-        </template>
-        <template v-if="isError">
-          <h1>Error retrieving profile...</h1>
         </template>
         <template v-if="isLoaded">
           <form>
             <div class="form-group">
               <label for="emailInput">Email</label>
               <input type="email" autocomplete="off" class="form-control" id="emailInput" v-model="email" placeholder="email">
+              <div class="text-danger top-buffer">{{ emailError }}</div>
             </div>
             <div class="form-group">
               <label for="nameInput">Name</label>
               <input class="form-control" autocomplete="off" id="nameInput" v-model="name" placeholder="name">
+              <div class="text-danger top-buffer">{{ nameError }}</div>
             </div>
             <div class="form-group">
               <label for="passwordInput">Password</label>
-              <input type="password" autocomplete="off" class="form-control" id="form-group" v-model="password" placeholder="password">
+              <input type="password" autocomplete="new-password" class="form-control" id="form-group" v-model="password" placeholder="password (leave blank to not change)">
+              <div class="text-danger top-buffer">{{ passwordError }}</div>
             </div>
-            <button type="submit" class="btn btn-primary" v-on:click="submitUpdate">Update Profile</button>
+            <button type="submit" class="btn btn-primary" v-on:click.prevent="submitUpdate">Update Profile</button>
           </form>
           <h4 v-if="updateSuccess">Profile Updated Successfully!</h4>
         </template>
@@ -50,6 +51,8 @@ export default {
       password: null,
       fetchStatus: 'notLoaded',
       updateStatus: 'notSubmitted',
+      error_message: '',
+      response_errors: null,
     }
   },
   computed: {
@@ -80,7 +83,15 @@ export default {
     isError: function() {
       return this.fetchStatus === 'error' || this.updateStatus === 'error'
     },
-
+    nameError: function() {
+      return ((this.response_errors || {}).name || [])[0]
+    },
+    emailError: function() {
+      return ((this.response_errors || {}).email || [])[0]
+    },
+    passwordError: function() {
+      return ((this.response_errors || {}).password || [])[0]
+    },
   },
   methods: {
     submitUpdate: function submitUpdate() {
@@ -95,7 +106,12 @@ export default {
           this.$store.dispatch('updateCurrentUserName', response.data.name);
         })
         .catch((error) => {
-          this.updateStatus = 'error'
+          this.updateStatus = 'error';
+          if ([409, 422].includes(error.response.status)) {
+            this.response_errors = error.response.data.errors
+          } else {
+            this.error_message = `Error updating profile: ${error}`;
+          }
         });
     }
   },
@@ -109,6 +125,7 @@ export default {
       })
       .catch((error) => {
         this.fetchStatus = 'error';
+        this.error_message = `Error fetching profile: ${error}`;
       });
   },
 }
