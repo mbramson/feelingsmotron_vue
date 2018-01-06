@@ -13,7 +13,9 @@
         </thead>
         <tbody>
           <tr v-for="group in groups">
-            <th scope="row">{{ group.name }}</th>
+            <th scope="row">
+              <router-link :to="{ name: 'GroupOverview', params: { id: group.id }}">{{ group.name }}</router-link>
+            </th>
             <th scope="row">{{ group.description }}</th>
           </tr>
         </tbody>
