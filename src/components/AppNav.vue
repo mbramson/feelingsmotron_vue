@@ -1,24 +1,27 @@
 <template>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default navbar-expand-lg">
     <div class="navbar-header">
       <router-link to="/" class="navbar-brand"> Feelingsmotron </router-link>
+      <button class="navbar-toggle" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="glyphicon glyphicon-th-list"></i>
+      </button>
     </div>
-    <ul class="nav navbar-nav navbar-left">
-      <li>
-        <router-link to="/groups" class="navbar-nav">Groups</router-link>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li v-if="isLoggedIn">
-        <router-link to="/profile" class="navbar-nav">{{ user_name }}</router-link>
-      </li>
-      <li v-if="isLoggedIn">
-        <a href="#" class="navbar-nav" @click="handleLogout()">Log out</a>
-      </li>
-      <li v-if="!isLoggedIn">
-        <router-link to="/login" class="navbar-nav">Log In</router-link>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <router-link to="/groups" class="navbar-link">Groups</router-link>
+        </li>
+        <li class="nav-item" v-if="isLoggedIn">
+          <router-link to="/profile" class="navbar-link">{{ user_name }}</router-link>
+        </li>
+        <li class="nav-item" v-if="isLoggedIn">
+          <a href="#" class="navbar-link" @click="handleLogout()">Log out</a>
+        </li>
+        <li class="nav-item" v-if="!isLoggedIn">
+          <router-link to="/login" class="navbar-link">Log In</router-link>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 
