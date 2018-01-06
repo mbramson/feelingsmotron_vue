@@ -3,11 +3,20 @@
     <div class="navbar-header">
       <router-link to="/" class="navbar-brand"> Feelingsmotron </router-link>
     </div>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-left">
       <li>
-        <button v-if="isLoggedIn" class="btn btn-primary log" @click="handleProfile()">{{ user_name }}</button>
-        <button v-if="isLoggedIn" class="btn btn-danger log" @click="handleLogout()">Log out </button>
-        <button v-if="!isLoggedIn" class="btn btn-info log" @click="handleLogin()">Log In</button>
+        <router-link to="/groups" class="navbar-nav">Groups</router-link>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li v-if="isLoggedIn">
+        <button class="btn btn-primary log" @click="handleProfile()">{{ user_name }}</button>
+      </li>
+      <li v-if="isLoggedIn">
+        <button class="btn btn-danger log" @click="handleLogout()">Log out </button>
+      </li>
+      <li v-if="!isLoggedIn">
+        <button class="btn btn-info log" @click="handleLogin()">Log In</button>
       </li>
     </ul>
   </nav>
