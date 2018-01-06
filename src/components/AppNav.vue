@@ -10,13 +10,13 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li v-if="isLoggedIn">
-        <button class="btn btn-primary log" @click="handleProfile()">{{ user_name }}</button>
+        <router-link to="/profile" class="navbar-nav">{{ user_name }}</router-link>
       </li>
       <li v-if="isLoggedIn">
-        <button class="btn btn-danger log" @click="handleLogout()">Log out </button>
+        <a href="#" class="navbar-nav" @click="handleLogout()">Log out</a>
       </li>
       <li v-if="!isLoggedIn">
-        <button class="btn btn-info log" @click="handleLogin()">Log In</button>
+        <router-link to="/login" class="navbar-nav">Log In</router-link>
       </li>
     </ul>
   </nav>
