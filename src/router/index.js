@@ -5,6 +5,7 @@ import Feelings from '@/components/Feelings';
 import GroupIndex from '@/components/groups/GroupIndex';
 import GroupOverview from '@/components/groups/GroupOverview';
 import GroupCreate from '@/components/groups/GroupCreate';
+import GroupSettings from '@/components/groups/GroupSettings';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
 import Profile from '@/components/Profile';
@@ -65,6 +66,12 @@ export default new Router({
       name: 'GroupCreate',
       beforeEnter: redirectIfNotAuthorized,
       component: GroupCreate,
+    },
+    {
+      path: '/groups/:id/settings',
+      name: 'GroupSettings',
+      beforeEnter: redirectIfNotAuthorized,
+      component: GroupSettings,
     },
     {
       path: '/groups/:id',
