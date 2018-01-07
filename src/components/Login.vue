@@ -3,6 +3,7 @@
     <app-nav></app-nav>
     <div class="row centered-form center-block">
       <div class="container col-xs-4 col-xs-offset-4">
+        <h4 class ="text-danger" v-if="isError">{{ error_message }}</h4>
         <h1>Login</h1>
         <form>
           <div class="form-group">
@@ -26,6 +27,8 @@
 import axios from 'axios';
 import AppNav from './AppNav';
 
+const loginUrl = 'http://localhost:4000/api/v1/sessions'
+
 export default {
   name: 'Login',
   components: {
@@ -36,17 +39,26 @@ export default {
       email: '',
       password: '',
       status: '',
+      error_message: '',
     };
+  },
+  computed: {
+    request_body: function() {
+      return { user: {
+        email: this.email,
+        password: this.password,
+      } }
+    },
+    isError: function() {
+      return this.status === 'error'
+    }
   },
   methods: {
     submitLogin: function submitLogin() {
-      this.status = 'Logging in...';
+      this.status = 'notSubmitted';
       axios.post(
-        'http://localhost:4000/api/v1/sessions',
-        { user: {
-          email: this.email,
-          password: this.password,
-        } },
+        loginUrl,
+        this.request_body,
         )
         .then((response) => {
           const userData = {
@@ -55,14 +67,15 @@ export default {
             id: response.data.user.id,
           };
           this.$store.dispatch('login', userData);
-          this.status = `Logged in as ${response.data.user.name}`;
+          this.status = 'success';
           this.$router.push('/');
         })
         .catch((error) => {
+          this.status = 'error';
           if (error.response.status === 401) {
-            this.status = 'Invalid Login Credentials';
+            this.error_message = 'Invalid Login Credentials';
           } else {
-            this.status = `Login failed with error: ${error}`;
+            this.error_message = `Login failed with error: ${error}`;
           }
         });
     },
