@@ -5,6 +5,7 @@
     <div v-if="isLoaded" class="container col-xs-6 col-xs-offset-3">
       <h1>{{ name }}</h1>
       <dd>{{ description }}</dd>
+      <router-link v-if="userCanAccessSettings" :to="{ name: 'GroupSettings', params: { id: groupId }}">Settings</router-link>
       <br>
       <dt>Owner</dt>
       <dd>{{ owner.name }}</dd>
@@ -59,6 +60,9 @@ export default {
     isLoaded: function() {
       return this.status ==='success'
     },
+    userCanAccessSettings() {
+      return this.owner && this.owner.id === this.$store.getters.user_id
+    }
   },
   mounted: function afterMount() {
     const vm = this;
