@@ -1,11 +1,5 @@
 import * as types from '../mutation-types';
 
-const state = {
-  jwt: null,
-  user_name: null,
-  user_id: null,
-};
-
 const getters = {
   jwt: state => state.jwt,
   user_name: state => state.user_name,
@@ -34,37 +28,33 @@ const actions = {
 };
 
 const mutations = {
-  [types.LOGIN_USER](storeState, user) {
+  [types.LOGIN_USER](state, user) {
     state.jwt = user.jwt;
     state.user_name = user.name;
     state.user_id = user.id;
-    storeState.jwt = user.jwt;
-    storeState.user_name = user.name;
-    storeState.user_id = user.id;
   },
 
-  [types.LOGOUT](storeState) {
+  [types.LOGOUT](state) {
     state.jwt = null;
     state.user_name = null;
     state.user_id = null;
-    storeState.jwt = null;
-    storeState.user_name = null;
-    storeState.user_id = null;
   },
 
-  [types.PULL_AUTH_FROM_STORAGE](storeState, auth) {
+  [types.PULL_AUTH_FROM_STORAGE](state, auth) {
     state.jwt = auth.jwt;
     state.user_name = auth.user_name;
     state.user_id = auth.user_id;
-    storeState.jwt = auth.jwt;
-    storeState.user_name = auth.user_name;
-    storeState.user_id = auth.user_id;
   },
 
-  [types.UPDATE_CURRENT_USER_NAME](storeState, name) {
-    storeState.user_name = name;
+  [types.UPDATE_CURRENT_USER_NAME](state, name) {
     state.user_name = name;
   },
+};
+
+const state = {
+  jwt: null,
+  user_name: null,
+  user_id: null,
 };
 
 export default {
