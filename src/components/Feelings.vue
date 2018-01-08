@@ -34,7 +34,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import AppNav from './AppNav';
 
-const feelingsUrl = 'http://localhost:4000/api/v1/feelings'
+const feelingsUrl = 'http://localhost:4000/api/v1/feelings';
 
 export default {
   name: 'Feelings',
@@ -50,10 +50,10 @@ export default {
     };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    update_body: function() {
+    update_body: function () {
       return {
         feelings: this.selectedFeeling,
         comment: this.comment,
@@ -75,7 +75,7 @@ export default {
           });
       },
       1000, // milliseconds to throttle
-      {'leading': true, 'trailing': true, },
+      { leading: true, trailing: true },
     ),
   },
   mounted: function afterMount() {

@@ -27,7 +27,7 @@
 import axios from 'axios';
 import AppNav from './AppNav';
 
-const loginUrl = 'http://localhost:4000/api/v1/sessions'
+const loginUrl = 'http://localhost:4000/api/v1/sessions';
 
 export default {
   name: 'Login',
@@ -43,15 +43,15 @@ export default {
     };
   },
   computed: {
-    request_body: function() {
+    request_body: function () {
       return { user: {
         email: this.email,
         password: this.password,
-      } }
+      } };
     },
-    isError: function() {
-      return this.status === 'error'
-    }
+    isError: function () {
+      return this.status === 'error';
+    },
   },
   methods: {
     submitLogin: function submitLogin() {

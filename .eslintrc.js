@@ -31,6 +31,12 @@ module.exports = {
     }],
     // allow parameter reassign. This is used in vuex.
     "no-param-reassign": 0,
+    // Custom configuration
+    "func-names": 0,
+    "prefer-template": 0,
+    "object-shorthand": 0,
+    // Because of vuex nonsense
+    "no-shadow": 0,
     // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
       'optionalDependencies': ['test/unit/index.js']

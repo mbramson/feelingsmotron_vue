@@ -27,7 +27,7 @@
 import axios from 'axios';
 import AppNav from './AppNav';
 
-const profileUrl = 'http://localhost:4000/api/v1/profile'
+const profileUrl = 'http://localhost:4000/api/v1/profile';
 
 export default {
   name: 'Profile',
@@ -39,20 +39,21 @@ export default {
       email: null,
       name: null,
       status: 'notLoaded',
-    }
+      error_message: '',
+    };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    isLoaded: function() {
-      return this.status === 'success'
+    isLoaded: function () {
+      return this.status === 'success';
     },
-    isRequesting: function() {
-      return this.status === 'requesting'
+    isRequesting: function () {
+      return this.status === 'requesting';
     },
-    isError: function() {
-      return this.status === 'error'
+    isError: function () {
+      return this.status === 'error';
     },
   },
   mounted: function afterMount() {
@@ -65,9 +66,10 @@ export default {
       })
       .catch((error) => {
         this.status = 'error';
+        this.error_message = `Error retriving Profile: ${error}`;
       });
   },
-}
+};
 </script>
 
 <style scoped>

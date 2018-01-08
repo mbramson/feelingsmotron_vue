@@ -37,7 +37,7 @@
 import axios from 'axios';
 import AppNav from './AppNav';
 
-const profileUrl = 'http://localhost:4000/api/v1/profile'
+const profileUrl = 'http://localhost:4000/api/v1/profile';
 
 export default {
   name: 'ProfileUpdate',
@@ -53,13 +53,13 @@ export default {
       updateStatus: 'notSubmitted',
       error_message: '',
       response_errors: null,
-    }
+    };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    updateBody: function() {
+    updateBody: function () {
       return {
         user: {
           email: this.email,
@@ -68,29 +68,29 @@ export default {
         },
       };
     },
-    isLoaded: function() {
-      return this.fetchStatus === 'success'
+    isLoaded: function () {
+      return this.fetchStatus === 'success';
     },
-    updateSuccess: function() {
-      return this.updateStatus === 'success'
+    updateSuccess: function () {
+      return this.updateStatus === 'success';
     },
-    isRequestingProfile: function() {
-      return this.fetchStatus === 'requesting'
+    isRequestingProfile: function () {
+      return this.fetchStatus === 'requesting';
     },
-    isRequestingUpdate: function() {
-      return this.updateStatus === 'requesting'
+    isRequestingUpdate: function () {
+      return this.updateStatus === 'requesting';
     },
-    isError: function() {
-      return this.fetchStatus === 'error' || this.updateStatus === 'error'
+    isError: function () {
+      return this.fetchStatus === 'error' || this.updateStatus === 'error';
     },
-    nameError: function() {
-      return ((this.response_errors || {}).name || [])[0]
+    nameError: function () {
+      return ((this.response_errors || {}).name || [])[0];
     },
-    emailError: function() {
-      return ((this.response_errors || {}).email || [])[0]
+    emailError: function () {
+      return ((this.response_errors || {}).email || [])[0];
     },
-    passwordError: function() {
-      return ((this.response_errors || {}).password || [])[0]
+    passwordError: function () {
+      return ((this.response_errors || {}).password || [])[0];
     },
   },
   methods: {
@@ -102,18 +102,18 @@ export default {
         this.headers,
         )
         .then((response) => {
-          this.updateStatus = 'success'
+          this.updateStatus = 'success';
           this.$store.dispatch('updateCurrentUserName', response.data.name);
         })
         .catch((error) => {
           this.updateStatus = 'error';
           if ([409, 422].includes(error.response.status)) {
-            this.response_errors = error.response.data.errors
+            this.response_errors = error.response.data.errors;
           } else {
             this.error_message = `Error updating profile: ${error}`;
           }
         });
-    }
+    },
   },
   mounted: function afterMount() {
     this.fetchStatus = 'requesting';
@@ -128,7 +128,7 @@ export default {
         this.error_message = `Error fetching profile: ${error}`;
       });
   },
-}
+};
 </script>
 
 <style scoped>

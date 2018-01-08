@@ -33,7 +33,7 @@
 import axios from 'axios';
 import AppNav from './AppNav';
 
-const registrationUrl = 'http://localhost:4000/api/v1/registrations'
+const registrationUrl = 'http://localhost:4000/api/v1/registrations';
 
 export default {
   name: 'Signup',
@@ -51,24 +51,24 @@ export default {
     };
   },
   computed: {
-    nameError: function() {
-      return ((this.response_errors || {}).name || [])[0]
+    nameError: function () {
+      return ((this.response_errors || {}).name || [])[0];
     },
-    emailError: function() {
-      return ((this.response_errors || {}).email || [])[0]
+    emailError: function () {
+      return ((this.response_errors || {}).email || [])[0];
     },
-    passwordError: function() {
-      return ((this.response_errors || {}).password || [])[0]
+    passwordError: function () {
+      return ((this.response_errors || {}).password || [])[0];
     },
-    isError: function() {
-      return this.status === 'error'
+    isError: function () {
+      return this.status === 'error';
     },
-    requestBody: function() {
+    requestBody: function () {
       return { user: {
         email: this.email,
         name: this.name,
         password: this.password,
-      } }
+      } };
     },
   },
   methods: {
@@ -89,9 +89,9 @@ export default {
           this.$router.push('/');
         })
         .catch((error) => {
-          this.status = 'error'
+          this.status = 'error';
           if ([409, 422].includes(error.response.status)) {
-            this.response_errors = error.response.data.errors
+            this.response_errors = error.response.data.errors;
           } else {
             this.error_message = `Login failed with error: ${error}`;
           }

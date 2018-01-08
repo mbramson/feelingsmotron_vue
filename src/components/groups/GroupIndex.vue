@@ -28,7 +28,7 @@
 import axios from 'axios';
 import AppNav from '../AppNav';
 
-const groupUrl = 'http://localhost:4000/api/v1/groups'
+const groupUrl = 'http://localhost:4000/api/v1/groups';
 
 export default {
   name: 'GroupIndex',
@@ -42,11 +42,11 @@ export default {
     };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    noGroupsFound: function() {
-      return this.status === 'success' && this.groups.length == 0
+    noGroupsFound: function () {
+      return this.status === 'success' && this.groups.length === 0;
     },
   },
   mounted: function afterMount() {

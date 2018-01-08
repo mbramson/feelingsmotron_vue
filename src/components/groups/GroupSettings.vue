@@ -42,32 +42,32 @@ export default {
     };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    request_body: function() {
+    request_body: function () {
       return { group: {
         name: this.name,
         description: this.description,
-      } }
+      } };
     },
     groupUrl: function () {
-      return 'http://localhost:4000/api/v1/groups/' + this.groupId
+      return 'http://localhost:4000/api/v1/groups/' + this.groupId;
     },
-    groupId: function() {
-      return this.$route.params.id
+    groupId: function () {
+      return this.$route.params.id;
     },
-    isError: function() {
-      return this.fetchStatus === 'error' || this.updateStatus === 'error'
+    isError: function () {
+      return this.fetchStatus === 'error' || this.updateStatus === 'error';
     },
-    isLoaded: function() {
-      return this.fetchStatus === 'success'
+    isLoaded: function () {
+      return this.fetchStatus === 'success';
     },
-    nameError: function() {
-      return ((this.response_errors || {}).name || [])[0]
+    nameError: function () {
+      return ((this.response_errors || {}).name || [])[0];
     },
-    descriptionError: function() {
-      return ((this.response_errors || {}).description || [])[0]
+    descriptionError: function () {
+      return ((this.response_errors || {}).description || [])[0];
     },
   },
   methods: {
@@ -84,9 +84,9 @@ export default {
         .catch((error) => {
           this.updateStatus = 'error';
           if ([409, 422].includes(error.response.status)) {
-            this.response_errors = error.response.data.errors
-          } else if(error.response.status === 403) {
-            this.error_message = "You're not allowed to change this group's settings"
+            this.response_errors = error.response.data.errors;
+          } else if (error.response.status === 403) {
+            this.error_message = "You're not allowed to change this group's settings";
           } else {
             this.error_message = `Error creating group: ${error}`;
           }
@@ -94,7 +94,6 @@ export default {
     },
   },
   mounted: function afterMount() {
-    console.log('making initial request')
     this.fetchStatus = 'requesting';
     axios.get(this.groupUrl, this.headers)
       .then((response) => {

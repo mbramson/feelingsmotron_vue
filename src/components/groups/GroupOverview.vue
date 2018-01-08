@@ -45,24 +45,24 @@ export default {
     };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    groupUrl: function() {
-      return `http://localhost:4000/api/v1/groups/${this.groupId}`
+    groupUrl: function () {
+      return `http://localhost:4000/api/v1/groups/${this.groupId}`;
     },
-    groupId: function() {
-      return this.$route.params.id
+    groupId: function () {
+      return this.$route.params.id;
     },
-    isError: function() {
-      return this.status === 'error'
+    isError: function () {
+      return this.status === 'error';
     },
-    isLoaded: function() {
-      return this.status ==='success'
+    isLoaded: function () {
+      return this.status === 'success';
     },
-    userCanAccessSettings() {
-      return this.owner && this.owner.id === this.$store.getters.user_id
-    }
+    userCanAccessSettings: function () {
+      return this.owner && this.owner.id === this.$store.getters.user_id;
+    },
   },
   mounted: function afterMount() {
     const vm = this;
@@ -78,7 +78,7 @@ export default {
       .catch((error) => {
         vm.status = 'error';
         if (error.response.status === 404) {
-          vm.error_message = 'Group could not be found'
+          vm.error_message = 'Group could not be found';
         } else {
           vm.error_message = `Error retrieving Group: ${error}`;
         }

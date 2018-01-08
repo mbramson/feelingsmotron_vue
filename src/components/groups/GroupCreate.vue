@@ -44,23 +44,23 @@ export default {
     };
   },
   computed: {
-    headers: function() {
-      return this.$store.getters.requestHeaders
+    headers: function () {
+      return this.$store.getters.requestHeaders;
     },
-    request_body: function() {
+    request_body: function () {
       return { group: {
         name: this.name,
         description: this.description,
-      } }
+      } };
     },
-    isError: function() {
-      return this.status === 'error'
+    isError: function () {
+      return this.status === 'error';
     },
-    nameError: function() {
-      return ((this.response_errors || {}).name || [])[0]
+    nameError: function () {
+      return ((this.response_errors || {}).name || [])[0];
     },
-    descriptionError: function() {
-      return ((this.response_errors || {}).description || [])[0]
+    descriptionError: function () {
+      return ((this.response_errors || {}).description || [])[0];
     },
   },
   methods: {
@@ -77,7 +77,7 @@ export default {
         .catch((error) => {
           this.status = 'error';
           if ([409, 422].includes(error.response.status)) {
-            this.response_errors = error.response.data.errors
+            this.response_errors = error.response.data.errors;
           } else {
             this.error_message = `Error creating group: ${error}`;
           }
