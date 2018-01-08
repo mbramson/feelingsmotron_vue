@@ -7,7 +7,7 @@
           <h1>Loading...</h1>
         </template>
         <template v-if="isError">
-          <h1>Error retrieving profile...</h1>
+          <h4 class="text-danger">{{ error_message }}</h4>
         </template>
         <template v-if="isLoaded">
           <h1>Profile</h1>
