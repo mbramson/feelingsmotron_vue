@@ -54,6 +54,7 @@ export default {
     this.status = 'Retrieving Groups...';
     axios.get(groupUrl, this.headers)
       .then((response) => {
+        this.$store.dispatch('fetchGroups', response.data.groups);
         vm.groups = response.data.groups;
         vm.status = 'success';
       })
