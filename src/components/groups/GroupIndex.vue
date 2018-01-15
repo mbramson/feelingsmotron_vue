@@ -37,13 +37,15 @@ export default {
   },
   data() {
     return {
-      groups: [],
       status: '',
     };
   },
   computed: {
     headers: function () {
       return this.$store.getters.requestHeaders;
+    },
+    groups: function() {
+      return this.$store.getters.groups;
     },
     noGroupsFound: function () {
       return this.status === 'success' && this.groups.length === 0;
@@ -55,7 +57,6 @@ export default {
     axios.get(groupUrl, this.headers)
       .then((response) => {
         this.$store.dispatch('fetchGroups', response.data.groups);
-        vm.groups = response.data.groups;
         vm.status = 'success';
       })
       .catch((error) => {
