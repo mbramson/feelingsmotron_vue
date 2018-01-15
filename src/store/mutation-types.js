@@ -2,6 +2,7 @@ export const FETCH_GROUPS = 'FETCH_GROUPS';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT = 'LOGOUT';
 export const PULL_AUTH_FROM_STORAGE = 'PULL_AUTH_FROM_STORAGE';
+export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 export const UPDATE_CURRENT_USER_NAME = 'UPDATE_CURRENT_USER_NAME';
 
 export default {
@@ -9,5 +10,6 @@ export default {
   LOGIN_USER,
   LOGOUT,
   PULL_AUTH_FROM_STORAGE,
+  SET_ERROR_MESSAGE,
   UPDATE_CURRENT_USER_NAME,
 };
