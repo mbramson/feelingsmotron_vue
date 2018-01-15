@@ -12,7 +12,8 @@ const actions = {
         commit(types.FETCH_GROUPS, response.data.groups);
       })
       .catch((error) => {
-        console.log(error);
+        const message = `Error retrieving groups: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
       });
   },
 };
