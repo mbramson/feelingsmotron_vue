@@ -25,10 +25,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AppNav from '../AppNav';
-
-const groupUrl = 'http://localhost:4000/api/v1/groups';
 
 export default {
   name: 'GroupIndex',
@@ -44,7 +41,7 @@ export default {
     headers: function () {
       return this.$store.getters.requestHeaders;
     },
-    groups: function() {
+    groups: function () {
       return this.$store.getters.groups;
     },
     noGroupsFound: function () {
@@ -52,16 +49,8 @@ export default {
     },
   },
   mounted: function afterMount() {
-    const vm = this;
     this.status = 'Retrieving Groups...';
-    axios.get(groupUrl, this.headers)
-      .then((response) => {
-        this.$store.dispatch('fetchGroups', response.data.groups);
-        vm.status = 'success';
-      })
-      .catch((error) => {
-        vm.status = `Error! Could not retrieve Groups from API: ${error}`;
-      });
+    this.$store.dispatch('fetchGroups');
   },
 };
 </script>
