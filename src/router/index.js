@@ -24,7 +24,7 @@ const redirectIfNotAuthorized = (to, from, next) => {
   }
 };
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -81,3 +81,11 @@ export default new Router({
     },
   ],
 });
+
+router.afterEach((to, from) => {
+  if (store.getters.errorMessage) {
+    store.dispatch('clearErrors');
+  }
+});
+
+export default router;

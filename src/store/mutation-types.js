@@ -1,3 +1,4 @@
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const FETCH_GROUPS = 'FETCH_GROUPS';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT = 'LOGOUT';
@@ -6,6 +7,7 @@ export const SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 export const UPDATE_CURRENT_USER_NAME = 'UPDATE_CURRENT_USER_NAME';
 
 export default {
+  CLEAR_ERRORS,
   FETCH_GROUPS,
   LOGIN_USER,
   LOGOUT,

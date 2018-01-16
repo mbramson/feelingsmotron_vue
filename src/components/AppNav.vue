@@ -24,7 +24,7 @@
         </ul>
       </div>
     </nav>
-    <div class="alert alert-danger">
+    <div v-if="errorMessage" class="alert alert-danger">
       <strong>{{ errorMessage }}</strong>
     </div>
   </div>
