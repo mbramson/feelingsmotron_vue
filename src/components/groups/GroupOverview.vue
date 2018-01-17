@@ -40,6 +40,7 @@ export default {
       description: '',
       owner: null,
       users: [],
+      invitations: [],
       status: 'notRequested',
       error_message: '',
     };
@@ -73,6 +74,7 @@ export default {
         vm.description = response.data.description;
         vm.owner = response.data.owner;
         vm.users = response.data.users;
+        vm.invitations = response.data.invitations;
         vm.status = 'success';
       })
       .catch((error) => {
