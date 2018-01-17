@@ -56,11 +56,8 @@ export default {
     groupId: function () {
       return this.$route.params.id;
     },
-    groups: function () {
-      return this.$store.getters.groups;
-    },
     currentGroup: function () {
-      return _.find(this.groups, g => g.id === this.groupId);
+      return _.find(this.$store.getters.groups, g => g.id === this.groupId);
     },
     isError: function () {
       return this.status === 'error';
