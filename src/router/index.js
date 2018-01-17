@@ -82,7 +82,7 @@ const router = new Router({
   ],
 });
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
   if (store.getters.errorMessage) {
     store.dispatch('clearErrors');
   }
