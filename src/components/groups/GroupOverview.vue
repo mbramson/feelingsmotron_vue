@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import axios from 'axios';
 import AppNav from '../AppNav';
 
@@ -55,6 +56,12 @@ export default {
     groupId: function () {
       return this.$route.params.id;
     },
+    groups: function () {
+      return this.$store.getters.groups;
+    },
+    currentGroup: function () {
+      return _.find(this.groups, g => g.id === this.groupId);
+    },
     isError: function () {
       return this.status === 'error';
     },
@@ -68,6 +75,9 @@ export default {
   mounted: function afterMount() {
     const vm = this;
     this.status = 'requesting';
+    this.$store.dispatch('fetchGroups', {
+      groupId: this.groupId,
+    });
     axios.get(this.groupUrl, this.headers)
       .then((response) => {
         vm.name = response.data.name;
