@@ -11,7 +11,7 @@ const actions = {
   fetchGroups({ commit, rootGetters }) {
     groupApi.getIndex(rootGetters.requestHeaders)
       .then((response) => {
-        commit(types.FETCH_GROUPS, response.data.groups);
+        commit(types.UPDATE_ALL_GROUPS, response.data.groups);
       })
       .catch((error) => {
         const message = `Error retrieving groups: ${error}`;
@@ -32,7 +32,7 @@ const actions = {
 };
 
 const mutations = {
-  [types.FETCH_GROUPS](state, groups) {
+  [types.UPDATE_ALL_GROUPS](state, groups) {
     state.groups = groups;
   },
   [types.UPDATE_GROUP](state, group) {
