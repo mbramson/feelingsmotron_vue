@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Vue from 'vue';
 import * as types from '../mutation-types';
 import groupApi from '../../api/groups';
 
@@ -35,11 +36,12 @@ const mutations = {
     state.groups = groups;
   },
   [types.UPDATE_GROUP](state, group) {
-    // remove the old group if it existed before since its data may be stale
-    const newGroups = _.remove(state.groups, g => g.id === group.id);
-    // Add this group with new data
-    newGroups.push(group);
-    state.groups = newGroups;
+    const index = state.groups.findIndex(g => g.id === group.id);
+    if (index === -1) {
+      state.groups.push(group);
+    } else {
+      Vue.set(state.groups, index, group);
+    }
   },
 };
 

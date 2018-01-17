@@ -72,9 +72,9 @@ export default {
   mounted: function afterMount() {
     const vm = this;
     this.status = 'requesting';
-    this.$store.dispatch('fetchGroups', {
-      groupId: this.groupId,
-    });
+    console.log('BEFORE ACTION')
+    console.log(this.$store.getters.groups);
+    this.$store.dispatch('fetchGroup', this.groupId);
     axios.get(this.groupUrl, this.headers)
       .then((response) => {
         vm.name = response.data.name;
