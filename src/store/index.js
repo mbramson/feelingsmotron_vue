@@ -17,6 +17,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       secure: true,
+      paths: ['auth'],
     }),
   ],
 });
