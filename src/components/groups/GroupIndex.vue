@@ -32,24 +32,15 @@ export default {
   components: {
     AppNav,
   },
-  data() {
-    return {
-      status: '',
-    };
-  },
   computed: {
-    headers: function () {
-      return this.$store.getters.requestHeaders;
-    },
     groups: function () {
       return this.$store.getters.groups;
     },
     noGroupsFound: function () {
-      return this.status === 'success' && this.groups.length === 0;
+      this.groups.length === 0;
     },
   },
   mounted: function afterMount() {
-    this.status = 'Retrieving Groups...';
     this.$store.dispatch('fetchGroups');
   },
 };
