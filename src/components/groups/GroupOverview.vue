@@ -57,7 +57,7 @@ export default {
       return this.$route.params.id;
     },
     currentGroup: function () {
-      return _.find(this.$store.getters.groups, g => g.id === this.groupId);
+      return _.find(this.$store.getters.groups, g => g.id == this.groupId) || {};
     },
     isError: function () {
       return this.status === 'error';
@@ -72,8 +72,6 @@ export default {
   mounted: function afterMount() {
     const vm = this;
     this.status = 'requesting';
-    console.log('BEFORE ACTION')
-    console.log(this.$store.getters.groups);
     this.$store.dispatch('fetchGroup', this.groupId);
     axios.get(this.groupUrl, this.headers)
       .then((response) => {

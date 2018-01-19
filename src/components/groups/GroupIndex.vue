@@ -37,7 +37,7 @@ export default {
       return this.$store.getters.groups;
     },
     noGroupsFound: function () {
-      this.groups.length === 0;
+      return this.groups.length === 0;
     },
   },
   mounted: function afterMount() {
