@@ -1,14 +1,15 @@
 <template>
   <div class="group-overview">
     <app-nav></app-nav>
-    <dd v-if="isError">{{ error_message }}</dd>
-    <div v-if="isLoaded" class="container col-xs-6 col-xs-offset-3">
+    <div v-if="groupInStore" class="container col-xs-6 col-xs-offset-3">
       <h1>{{ name }}</h1>
       <dd>{{ description }}</dd>
       <router-link v-if="userCanAccessSettings" :to="{ name: 'GroupSettings', params: { id: groupId }}">Settings</router-link>
       <br>
-      <dt>Owner</dt>
-      <dd>{{ owner.name }}</dd>
+      <div v-if="ownerLoaded">
+        <dt>Owner</dt>
+        <dd>{{ owner.name }}</dd>
+      </div>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -27,7 +28,6 @@
 
 <script>
 import _ from 'lodash';
-import axios from 'axios';
 import AppNav from '../AppNav';
 
 export default {
@@ -35,61 +35,38 @@ export default {
   components: {
     AppNav,
   },
-  data() {
-    return {
-      name: '',
-      description: '',
-      owner: null,
-      users: [],
-      invitations: [],
-      status: 'notRequested',
-      error_message: '',
-    };
-  },
   computed: {
-    headers: function () {
-      return this.$store.getters.requestHeaders;
-    },
-    groupUrl: function () {
-      return `http://localhost:4000/api/v1/groups/${this.groupId}`;
-    },
     groupId: function () {
       return this.$route.params.id;
     },
+    groupInStore: function () {
+      return this.currentGroup !== {};
+    },
     currentGroup: function () {
+      // eslint-disable-next-line eqeqeq
       return _.find(this.$store.getters.groups, g => g.id == this.groupId) || {};
     },
-    isError: function () {
-      return this.status === 'error';
+    description: function () {
+      return this.currentGroup.description;
     },
-    isLoaded: function () {
-      return this.status === 'success';
+    name: function () {
+      return this.currentGroup.name;
+    },
+    owner: function () {
+      return this.currentGroup.owner || {};
+    },
+    ownerLoaded: function () {
+      return this.owner !== {};
     },
     userCanAccessSettings: function () {
       return this.owner && this.owner.id === this.$store.getters.user_id;
     },
+    users: function () {
+      return this.currentGroup.users || [];
+    },
   },
   mounted: function afterMount() {
-    const vm = this;
-    this.status = 'requesting';
     this.$store.dispatch('fetchGroup', this.groupId);
-    axios.get(this.groupUrl, this.headers)
-      .then((response) => {
-        vm.name = response.data.name;
-        vm.description = response.data.description;
-        vm.owner = response.data.owner;
-        vm.users = response.data.users;
-        vm.invitations = response.data.invitations;
-        vm.status = 'success';
-      })
-      .catch((error) => {
-        vm.status = 'error';
-        if (error.response.status === 404) {
-          vm.error_message = 'Group could not be found';
-        } else {
-          vm.error_message = `Error retrieving Group: ${error}`;
-        }
-      });
   },
 };
 </script>
