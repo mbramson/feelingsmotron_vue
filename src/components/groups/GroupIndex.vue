@@ -42,6 +42,7 @@ export default {
   },
   mounted: function afterMount() {
     this.$store.dispatch('fetchGroups');
+    this.$store.dispatch('fetchGroupInvitations');
   },
 };
 </script>

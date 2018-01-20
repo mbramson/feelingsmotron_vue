@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import * as types from '../mutation-types';
 import groupApi from '../../api/groups';
+import groupInvitationApi from '../../api/group_invitations';
 
 const getters = {
   groups: state => state.groups,
+  invitations: state => state.invitations,
 };
 
 const actions = {
@@ -28,9 +30,22 @@ const actions = {
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
+  fetchGroupInvitations({ commit, rootGetters }) {
+    groupInvitationApi.getIndex(rootGetters.requestHeaders)
+      .then((response) => {
+        commit(types.UPDATE_ALL_GROUP_INVITATIONS, response.data.group_invitations);
+      })
+      .catch((error) => {
+        const message = `Error retrieving group invitations: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
 };
 
 const mutations = {
+  [types.UPDATE_ALL_GROUP_INVITATIONS](state, invitations) {
+    state.invitations = invitations;
+  },
   [types.UPDATE_ALL_GROUPS](state, groups) {
     state.groups = groups;
   },
@@ -47,6 +62,7 @@ const mutations = {
 
 const state = {
   groups: [],
+  invitations: [],
 };
 
 export default {
