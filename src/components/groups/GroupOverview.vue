@@ -6,6 +6,7 @@
       <dd>{{ description }}</dd>
       <router-link v-if="userCanAccessSettings" :to="{ name: 'GroupSettings', params: { id: groupId }}">Settings</router-link>
       <br>
+      <group-relation-button v-bind:group="currentGroup"/>
       <div v-if="ownerLoaded">
         <dt>Owner</dt>
         <dd>{{ owner.name }}</dd>
@@ -29,11 +30,13 @@
 <script>
 import _ from 'lodash';
 import AppNav from '../AppNav';
+import GroupRelationButton from './GroupRelationButton';
 
 export default {
   name: 'GroupOverview',
   components: {
     AppNav,
+    GroupRelationButton,
   },
   computed: {
     groupId: function () {
