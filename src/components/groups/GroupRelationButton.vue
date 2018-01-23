@@ -1,11 +1,14 @@
 <template>
   <div class="group-relation-button">
     <div class="btn-group" role="group">
-      <button v-if="currentUserIsOwner" class="btn-sm btn-success">Owner</button>
-      <button v-else-if="currentUserIsMember" class="btn-sm btn-success">Member</button>
-      <button v-else class="btn-sm btn-success">Request Membership</button>
-      <button class="btn-sm btn-success" v-if="currentUserInvitedByGroup">Accept Group Invitation</button>
-      <button class="btn-sm btn-secondary disabled" disabled v-if="currentUserRequestedMembership">Membership Request Pending...</button>
+      <button v-if="currentUserIsOwner" class="btn-xs btn-primary">Owner</button>
+      <button v-if="currentUserIsMember" class="btn-xs btn-primary">Member</button>
+      <button v-if="currentUserCanRequestMembership" class="btn-xs btn-success">Request Membership</button>
+      <template v-if="currentUserInvitedByGroup">
+        <button class="btn-xs btn-success">Accept Invitation</button>
+        <button class="btn-xs btn-danger">Decline Invitation</button>
+      </template>
+      <button class="btn-xs btn-secondary disabled" disabled v-if="currentUserRequestedMembership">Request Pending...</button>
     </div>
   </div>
 </template>
@@ -25,6 +28,11 @@ export default {
     },
     owner: function () {
       return this.group.owner || {};
+    },
+    currentUserCanRequestMembership: function () {
+      return !this.currentUserIsMember
+          && !this.currentUserInvitedByGroup
+          && !this.currentUserRequestedMembership
     },
     currentUserIsOwner: function () {
       return this.$store.getters.user_id === this.owner.id;
