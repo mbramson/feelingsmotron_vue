@@ -25,7 +25,7 @@
 
 <script>
 import axios from 'axios';
-import AppNav from './AppNav';
+import AppNav from '../AppNav';
 
 const profileUrl = 'http://localhost:4000/api/v1/profile';
 

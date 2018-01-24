@@ -8,8 +8,8 @@ import GroupCreate from '@/components/groups/GroupCreate';
 import GroupSettings from '@/components/groups/GroupSettings';
 import Login from '@/components/Login';
 import Signup from '@/components/Signup';
-import Profile from '@/components/Profile';
-import ProfileUpdate from '@/components/ProfileUpdate';
+import Profile from '@/components/profile/Profile';
+import ProfileUpdate from '@/components/profile/ProfileUpdate';
 import store from '../store';
 
 Vue.use(Vuex);
