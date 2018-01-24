@@ -3,7 +3,7 @@
     <div class="btn-group" role="group">
       <button v-if="currentUserIsOwner" class="btn-xs btn-primary">Owner</button>
       <button v-if="currentUserIsMember" class="btn-xs btn-primary">Member</button>
-      <button v-if="currentUserCanRequestMembership" class="btn-xs btn-success">Request Membership</button>
+      <button v-if="currentUserCanRequestMembership" @click="requestMembership" class="btn-xs btn-success">Request Membership</button>
       <template v-if="currentUserInvitedByGroup">
         <button class="btn-xs btn-success">Accept Invitation</button>
         <button class="btn-xs btn-danger">Decline Invitation</button>
@@ -35,7 +35,7 @@ export default {
           && !this.currentUserRequestedMembership
     },
     currentUserIsOwner: function () {
-      return this.$store.getters.user_id === this.owner.id;
+      return this.userId === this.owner.id;
     },
     users: function () {
       return this.group.users || [];
@@ -53,6 +53,18 @@ export default {
     groupInvite: function () {
       return this.$store.getters.invitations.find(i => i.group_id === this.group.id) || {};
     },
+  },
+  methods: {
+    requestMembership: _.throttle(
+      function requestMembership() {
+        this.$store.dispatch('requestGroupMembership', {
+          userId: this.userId,
+          groupId: this.group.id,
+        });
+      },
+      1000, // milliseconds to throttle
+      { leading: true, trailing: true },
+    ),
   },
 };
 </script>
