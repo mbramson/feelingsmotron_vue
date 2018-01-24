@@ -43,6 +43,15 @@ const actions = {
 };
 
 const mutations = {
+  [types.ADD_GROUP_INVITATION](state, invitation) {
+    const index = state.invitations.findIndex(i => i.id === invitation.id);
+    if (index === -1) {
+      state.invitations = [];
+      state.invitations.push(invitation);
+    } else {
+      Vue.set(state.invitations, index, invitation);
+    }
+  },
   [types.UPDATE_ALL_GROUP_INVITATIONS](state, invitations) {
     state.invitations = invitations;
   },

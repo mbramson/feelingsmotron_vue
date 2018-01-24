@@ -1,3 +1,4 @@
+export const ADD_GROUP_INVITATION = 'ADD_GROUP_INVITATION';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT = 'LOGOUT';
@@ -9,6 +10,7 @@ export const UPDATE_CURRENT_USER_NAME = 'UPDATE_CURRENT_USER_NAME';
 export const UPDATE_GROUP = 'UPDATE_GROUP';
 
 export default {
+  ADD_GROUP_INVITATION,
   CLEAR_ERRORS,
   LOGIN_USER,
   LOGOUT,
