@@ -6,4 +6,14 @@ export default {
   getIndex(headers) {
     return axios.get(groupInvitationUrl, headers);
   },
+  requestMembership(headers, userId, groupId) {
+    return axios.post(groupInvitationUrl, headers,
+      {
+        group_invitation: {
+          user_id: userId,
+          group_id: groupId,
+          from_user: false,
+        },
+      });
+  },
 };
