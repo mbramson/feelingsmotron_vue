@@ -40,6 +40,16 @@ const actions = {
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
+  requestGroupMembership({ commit, rootGetters }, { userId, groupId }) {
+    groupInvitationApi.requestMembership(rootGetters.requestHeaders, userId, groupId)
+      .then((response) => {
+        commit(types.ADD_GROUP_INVITATION, response.data.group_invitation);
+      })
+      .catch((error) => {
+        const message = `Error requesting group membership: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
 };
 
 const mutations = {
