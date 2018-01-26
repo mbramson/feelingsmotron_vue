@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   name: 'GroupRelationButton',
   props: [
@@ -32,7 +34,7 @@ export default {
     currentUserCanRequestMembership: function () {
       return !this.currentUserIsMember
           && !this.currentUserInvitedByGroup
-          && !this.currentUserRequestedMembership
+          && !this.currentUserRequestedMembership;
     },
     currentUserIsOwner: function () {
       return this.userId === this.owner.id;
