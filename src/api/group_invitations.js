@@ -16,4 +16,8 @@ export default {
     };
     return axios.post(groupInvitationUrl, payload, headers);
   },
+  deleteInvitation(headers, invitationId) {
+    const url = `${groupInvitationUrl}/${invitationId}`;
+    return axios.delete(url, headers);
+  },
 };

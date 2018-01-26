@@ -50,6 +50,16 @@ const actions = {
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
+  deleteGroupInvitation({ commit, rootGetters }, invitationId) {
+    groupInvitationApi.deleteInvitation(rootGetters.requestHeaders, invitationId)
+      .then((response) => {
+        commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
+      })
+      .catch((error) => {
+        const message = `Error remove group invitation: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
 };
 
 const mutations = {
@@ -60,6 +70,12 @@ const mutations = {
       state.invitations.push(invitation);
     } else {
       Vue.set(state.invitations, index, invitation);
+    }
+  },
+  [types.DELETE_GROUP_INVITATION](state, invitation) {
+    const index = state.invitations.findIndex(i => i.id === invitation.id);
+    if (index !== -1) {
+      state.invitations.splice(index, 1);
     }
   },
   [types.UPDATE_ALL_GROUP_INVITATIONS](state, invitations) {
