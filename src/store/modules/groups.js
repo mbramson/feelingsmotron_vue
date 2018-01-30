@@ -56,7 +56,17 @@ const actions = {
         commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
       })
       .catch((error) => {
-        const message = `Error remove group invitation: ${error}`;
+        const message = `Error declining group invitation: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
+  acceptGroupInvitation({ commit, rootGetters }, invitationId) {
+    groupInvitationApi.acceptInvitation(rootGetters.requestHeaders, invitationId)
+      .then((response) => {
+        commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
+      })
+      .catch((error) => {
+        const message = `Error accepting group invitation: ${error}`;
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
