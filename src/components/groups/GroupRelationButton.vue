@@ -5,7 +5,7 @@
       <button v-if="currentUserIsMember" class="btn-xs btn-primary">Member</button>
       <button v-if="currentUserCanRequestMembership" @click="requestMembership" class="btn-xs btn-success">Request Membership</button>
       <template v-if="currentUserInvitedByGroup">
-        <button class="btn-xs btn-success">Accept Invitation</button>
+        <button @click="acceptInvitation" class="btn-xs btn-success">Accept Invitation</button>
         <button @click="declineInvitation" class="btn-xs btn-danger">Decline Invitation</button>
       </template>
       <button class="btn-xs btn-secondary disabled" disabled v-if="currentUserRequestedMembership">Request Pending...</button>
@@ -70,6 +70,13 @@ export default {
     declineInvitation: _.throttle(
       function declineInvitation() {
         this.$store.dispatch('deleteGroupInvitation', this.groupInvite.id);
+      },
+      1000, // milliseconds to throttle
+      { leading: true, trailing: true },
+    ),
+    acceptInvitation: _.throttle(
+      function declineInvitation() {
+        this.$store.dispatch('acceptGroupInvitation', this.groupInvite.id);
       },
       1000, // milliseconds to throttle
       { leading: true, trailing: true },
