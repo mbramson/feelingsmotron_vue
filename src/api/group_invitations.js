@@ -20,4 +20,8 @@ export default {
     const url = `${groupInvitationUrl}/${invitationId}`;
     return axios.delete(url, headers);
   },
+  acceptInvitation(headers, invitationId) {
+    const url = `${groupInvitationUrl}/${invitationId}`;
+    return axios.put(url, {}, headers);
+  },
 };
