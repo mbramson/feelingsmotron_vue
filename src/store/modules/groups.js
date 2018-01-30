@@ -64,6 +64,11 @@ const actions = {
     groupInvitationApi.acceptInvitation(rootGetters.requestHeaders, invitationId)
       .then((response) => {
         commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
+        const payload = {
+          groupId: response.data.user_group.group_id,
+          newUser: rootGetters.currentUser,
+        };
+        commit(types.ADD_USER_TO_GROUP, payload);
       })
       .catch((error) => {
         const message = `Error accepting group invitation: ${error}`;
@@ -80,6 +85,13 @@ const mutations = {
       state.invitations.push(invitation);
     } else {
       Vue.set(state.invitations, index, invitation);
+    }
+  },
+  [types.ADD_USER_TO_GROUP](state, { groupId, newUser }) {
+    const groupIndex = state.groups.findIndex(i => i.id === groupId);
+    if (groupIndex !== -1) {
+      const group = state.groups[groupIndex];
+      group.users.push(newUser);
     }
   },
   [types.DELETE_GROUP_INVITATION](state, invitation) {

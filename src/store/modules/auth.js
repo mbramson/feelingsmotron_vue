@@ -4,6 +4,10 @@ const getters = {
   jwt: state => state.jwt,
   user_name: state => state.user_name,
   user_id: state => state.user_id,
+  currentUser: state => ({
+    id: state.user_id,
+    name: state.user_name,
+  }),
   isLoggedIn: state => !!state.jwt,
   requestHeaders: state => ({
     headers: {
