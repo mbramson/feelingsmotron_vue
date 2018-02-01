@@ -75,6 +75,16 @@ const actions = {
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
+  updateGroup({ commit, rootGetters }, { groupId, params }) {
+    groupInvitationApi.updateGroup(rootGetters.requestHeaders, groupId, params)
+      .then((response) => {
+        commit(types.UPDATE_GROUP, response.data.group);
+      })
+      .then((error) => {
+        const message = `Error updating group: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
 };
 
 const mutations = {
