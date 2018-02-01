@@ -9,13 +9,28 @@ const getters = {
 };
 
 const actions = {
-  fetchGroups({ commit, rootGetters }) {
-    groupApi.getIndex(rootGetters.requestHeaders)
+  acceptGroupInvitation({ commit, rootGetters }, invitationId) {
+    groupInvitationApi.acceptInvitation(rootGetters.requestHeaders, invitationId)
       .then((response) => {
-        commit(types.UPDATE_ALL_GROUPS, response.data.groups);
+        commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
+        const payload = {
+          groupId: response.data.user_group.group_id,
+          newUser: rootGetters.currentUser,
+        };
+        commit(types.ADD_USER_TO_GROUP, payload);
       })
       .catch((error) => {
-        const message = `Error retrieving groups: ${error}`;
+        const message = `Error accepting group invitation: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
+  deleteGroupInvitation({ commit, rootGetters }, invitationId) {
+    groupInvitationApi.deleteInvitation(rootGetters.requestHeaders, invitationId)
+      .then((response) => {
+        commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
+      })
+      .catch((error) => {
+        const message = `Error declining group invitation: ${error}`;
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
@@ -27,6 +42,16 @@ const actions = {
       })
       .catch((error) => {
         const message = `Error retrieving group: ${error}`;
+        commit(types.SET_ERROR_MESSAGE, message);
+      });
+  },
+  fetchGroups({ commit, rootGetters }) {
+    groupApi.getIndex(rootGetters.requestHeaders)
+      .then((response) => {
+        commit(types.UPDATE_ALL_GROUPS, response.data.groups);
+      })
+      .catch((error) => {
+        const message = `Error retrieving groups: ${error}`;
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
@@ -47,31 +72,6 @@ const actions = {
       })
       .catch((error) => {
         const message = `Error requesting group membership: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
-      });
-  },
-  deleteGroupInvitation({ commit, rootGetters }, invitationId) {
-    groupInvitationApi.deleteInvitation(rootGetters.requestHeaders, invitationId)
-      .then((response) => {
-        commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
-      })
-      .catch((error) => {
-        const message = `Error declining group invitation: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
-      });
-  },
-  acceptGroupInvitation({ commit, rootGetters }, invitationId) {
-    groupInvitationApi.acceptInvitation(rootGetters.requestHeaders, invitationId)
-      .then((response) => {
-        commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
-        const payload = {
-          groupId: response.data.user_group.group_id,
-          newUser: rootGetters.currentUser,
-        };
-        commit(types.ADD_USER_TO_GROUP, payload);
-      })
-      .catch((error) => {
-        const message = `Error accepting group invitation: ${error}`;
         commit(types.SET_ERROR_MESSAGE, message);
       });
   },
