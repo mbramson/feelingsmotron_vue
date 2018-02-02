@@ -24,11 +24,8 @@
         </ul>
       </div>
     </nav>
-    <div v-if="errorMessage" class="alert alert-danger">
-      <strong>{{ errorMessage }}</strong>
-    </div>
-    <div v-for="errora in errorResponseMessages" class="alert alert-danger">
-      <strong>{{ errora }}</strong>
+    <div v-for="error in errorResponseMessages" class="alert alert-danger">
+      <strong>{{ error }}</strong>
     </div>
   </div>
 </template>
@@ -40,7 +37,6 @@ export default {
   name: 'app-nav',
   computed: {
     ...mapGetters({
-      errorMessage: 'errorMessage',
       errorResponses: 'errorResponses',
       isLoggedIn: 'isLoggedIn',
       user_name: 'user_name',
