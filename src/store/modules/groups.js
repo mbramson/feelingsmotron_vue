@@ -70,11 +70,11 @@ const actions = {
       });
   },
   updateGroup({ commit, rootGetters }, { groupId, params }) {
-    groupInvitationApi.updateGroup(rootGetters.requestHeaders, groupId, params)
+    groupApi.updateGroup(rootGetters.requestHeaders, groupId, params)
       .then((response) => {
         commit(types.UPDATE_GROUP, response.data.group);
       })
-      .then((error) => {
+      .catch((error) => {
         commit(types.ADD_ERROR, error);
       });
   },
