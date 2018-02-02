@@ -27,6 +27,9 @@
     <div v-if="errorMessage" class="alert alert-danger">
       <strong>{{ errorMessage }}</strong>
     </div>
+    <div v-for="errora in errorResponseMessages" class="alert alert-danger">
+      <strong>{{ errora }}</strong>
+    </div>
   </div>
 </template>
 
@@ -38,9 +41,13 @@ export default {
   computed: {
     ...mapGetters({
       errorMessage: 'errorMessage',
+      errorResponses: 'errorResponses',
       isLoggedIn: 'isLoggedIn',
       user_name: 'user_name',
     }),
+    errorResponseMessages: function () {
+      return this.errorResponses.map(e => `${e}`);
+    },
   },
   methods: {
     handleProfile() {

@@ -20,8 +20,7 @@ const actions = {
         commit(types.ADD_USER_TO_GROUP, payload);
       })
       .catch((error) => {
-        const message = `Error accepting group invitation: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
   deleteGroupInvitation({ commit, rootGetters }, invitationId) {
@@ -30,8 +29,7 @@ const actions = {
         commit(types.DELETE_GROUP_INVITATION, response.data.group_invitation);
       })
       .catch((error) => {
-        const message = `Error declining group invitation: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
   fetchGroup({ commit, rootGetters }, groupId) {
@@ -41,8 +39,7 @@ const actions = {
         commit(types.UPDATE_GROUP, response.data);
       })
       .catch((error) => {
-        const message = `Error retrieving group: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
   fetchGroups({ commit, rootGetters }) {
@@ -51,8 +48,7 @@ const actions = {
         commit(types.UPDATE_ALL_GROUPS, response.data.groups);
       })
       .catch((error) => {
-        const message = `Error retrieving groups: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
   fetchGroupInvitations({ commit, rootGetters }) {
@@ -61,8 +57,7 @@ const actions = {
         commit(types.UPDATE_ALL_GROUP_INVITATIONS, response.data.group_invitations);
       })
       .catch((error) => {
-        const message = `Error retrieving group invitations: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
   requestGroupMembership({ commit, rootGetters }, { userId, groupId }) {
@@ -71,8 +66,7 @@ const actions = {
         commit(types.ADD_GROUP_INVITATION, response.data.group_invitation);
       })
       .catch((error) => {
-        const message = `Error requesting group membership: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
   updateGroup({ commit, rootGetters }, { groupId, params }) {
@@ -81,8 +75,7 @@ const actions = {
         commit(types.UPDATE_GROUP, response.data.group);
       })
       .then((error) => {
-        const message = `Error updating group: ${error}`;
-        commit(types.SET_ERROR_MESSAGE, message);
+        commit(types.ADD_ERROR, error);
       });
   },
 };
