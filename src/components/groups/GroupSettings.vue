@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     submitGroupUpdate: function submitGroupUpdate() {
-      console.log('submitGroupUpdate');
       const updateParameters = { groupId: this.groupId, params: this.request_body };
       this.$store.dispatch('updateGroup', updateParameters);
     },
