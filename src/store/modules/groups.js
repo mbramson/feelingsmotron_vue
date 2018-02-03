@@ -35,8 +35,7 @@ const actions = {
   fetchGroup({ commit, rootGetters }, groupId) {
     groupApi.getGroup(rootGetters.requestHeaders, groupId)
       .then((response) => {
-        // Maybe alter the response so that we have response.data.group here
-        commit(types.UPDATE_GROUP, response.data);
+        commit(types.UPDATE_GROUP, response.data.group);
       })
       .catch((error) => {
         commit(types.ADD_ERROR, error);
