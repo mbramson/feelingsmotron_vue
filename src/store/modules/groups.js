@@ -69,13 +69,17 @@ const actions = {
       });
   },
   updateGroup({ commit, rootGetters }, { groupId, params }) {
-    groupApi.updateGroup(rootGetters.requestHeaders, groupId, params)
-      .then((response) => {
-        commit(types.UPDATE_GROUP, response.data.group);
-      })
-      .catch((error) => {
-        commit(types.ADD_ERROR, error);
-      });
+    return new Promise((resolve, reject) => {
+      groupApi.updateGroup(rootGetters.requestHeaders, groupId, params)
+        .then((response) => {
+          commit(types.UPDATE_GROUP, response.data.group);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(types.ADD_ERROR, error);
+          reject(error);
+        });
+    })
   },
 };
 

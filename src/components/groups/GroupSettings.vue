@@ -32,14 +32,17 @@ export default {
       // eslint-disable-next-line eqeqeq
       return _.find(this.$store.getters.groups, g => g.id == this.groupId) || {};
     },
+    groupDescription: function () {
+      return this.currentGroup.description;
+    },
     groupId: function () {
       return this.$route.params.id;
     },
     groupName: function () {
       return this.currentGroup.name;
     },
-    groupDescription: function () {
-      return this.currentGroup.description;
+    groupUrl: function () {
+      return `/groups/${this.groupId}`
     },
     fetchedName: function () {
       return this.currentGroup.name;
@@ -54,7 +57,10 @@ export default {
   methods: {
     submitGroupUpdate: function submitGroupUpdate() {
       const updateParameters = { groupId: this.groupId, params: this.request_body };
-      this.$store.dispatch('updateGroup', updateParameters);
+      this.$store.dispatch('updateGroup', updateParameters)
+        .then((response) => {
+          this.$router.push(this.groupUrl);
+        });
     },
     updateDescription (e) {
       this.$store.commit('SET_FORM_DESCRIPTION_FIELD', e.target.value);
