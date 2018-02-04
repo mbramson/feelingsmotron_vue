@@ -62,7 +62,7 @@ const router = new Router({
       component: GroupIndex,
     },
     {
-      path: '/create_group',
+      path: '/groups/new',
       name: 'GroupCreate',
       beforeEnter: redirectIfNotAuthorized,
       component: GroupCreate,
