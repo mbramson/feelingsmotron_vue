@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import * as types from '../mutation-types';
 
-const fieldSpecificErrorsFromResponse = function fieldSpecificErrorsFromResponse(errorResponse, field) {
+const errorsForField = function errorsForField(errorResponse, field) {
   const data = errorResponse.response.data;
   return (data.errors || {})[field];
 };
 
 const fieldSpecificErrors = function fieldSpecificErrors(errorResponses, field) {
-  const result = errorResponses.map(e => fieldSpecificErrorsFromResponse(e, field));
+  const result = errorResponses.map(e => errorsForField(e, field));
   return _.flatten(result);
 };
 

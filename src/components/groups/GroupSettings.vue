@@ -42,7 +42,7 @@ export default {
       return this.currentGroup.name;
     },
     groupUrl: function () {
-      return `/groups/${this.groupId}`
+      return `/groups/${this.groupId}`;
     },
     fetchedName: function () {
       return this.currentGroup.name;
@@ -59,16 +59,16 @@ export default {
       this.$store.commit('CLEAR_ERRORS');
       const updateParameters = { groupId: this.groupId, params: this.request_body };
       this.$store.dispatch('updateGroup', updateParameters)
-        .then((response) => {
+        .then(() => {
           this.$router.push(this.groupUrl);
         });
     },
-    updateDescription (e) {
+    updateDescription(e) {
       this.$store.commit('SET_FORM_DESCRIPTION_FIELD', e.target.value);
     },
-    updateName (e) {
+    updateName(e) {
       this.$store.commit('SET_FORM_NAME_FIELD', e.target.value);
-    }
+    },
   },
   mounted: function afterMount() {
     this.$store.dispatch('fetchGroup', this.groupId);

@@ -79,7 +79,7 @@ const actions = {
           commit(types.ADD_ERROR, error);
           reject(error);
         });
-    })
+    });
   },
 };
 
