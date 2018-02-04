@@ -13,6 +13,7 @@ const fieldSpecificErrors = function fieldSpecificErrors(errorResponses, field) 
 
 const getters = {
   errorResponses: state => state.errorResponses,
+  errorsForDescriptionField: state => fieldSpecificErrors(state.errorResponses, 'description'),
   errorsForNameField: state => fieldSpecificErrors(state.errorResponses, 'name'),
 };
 

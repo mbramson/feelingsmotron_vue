@@ -7,10 +7,16 @@
         <div class="form-group">
           <label for="nameInput">Group Name</label>
           <input class="form-control" id="nameInput" @input="updateName" :placeholder="groupName">
+          <template v-for="error in errorsForNameField">
+            <div class="text-danger top-buffer">{{ error }}</div>
+          </template>
         </div>
         <div class="form-group">
           <label for="descriptionInput">Group Description</label>
           <textarea class="form-control" @input="updateDescription" aria-label="description" id="descriptionInput" rows="2" :placeholder="groupDescription"></textarea>
+          <template v-for="error in errorsForDescriptionField">
+            <div class="text-danger top-buffer">{{ error }}</div>
+          </template>
         </div>
         <button class="btn btn-primary" v-on:click.prevent="submitGroupUpdate">Submit</button>
       </form>
@@ -31,6 +37,12 @@ export default {
     currentGroup: function () {
       // eslint-disable-next-line eqeqeq
       return _.find(this.$store.getters.groups, g => g.id == this.groupId) || {};
+    },
+    errorsForDescriptionField: function () {
+      return this.$store.getters.errorsForDescriptionField
+    },
+    errorsForNameField: function () {
+      return this.$store.getters.errorsForNameField
     },
     groupDescription: function () {
       return this.currentGroup.description;
