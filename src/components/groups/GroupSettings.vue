@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     deleteGroup: function deleteGroup() {
-      const message = 'Are you sure you want to delete this group? This action cannot be undone'
+      const message = 'Are you sure you want to delete this group? This action cannot be undone';
       if (confirm(message)) {
         this.$store.commit('CLEAR_ERRORS');
         this.$store.dispatch('deleteGroup', this.groupId)

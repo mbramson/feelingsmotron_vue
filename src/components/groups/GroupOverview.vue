@@ -77,7 +77,7 @@ export default {
       return this.groupStatus === 'loaded';
     },
     groupInvitationsLoaded: function () {
-      return this.groupInvitationStatus == 'loaded';
+      return this.groupInvitationStatus === 'loaded';
     },
     name: function () {
       return this.currentGroup.name;
@@ -96,19 +96,19 @@ export default {
     },
   },
   mounted: function afterMount() {
-    this.groupStatus = 'requested'
+    this.groupStatus = 'requested';
     this.$store.dispatch('fetchGroup', this.groupId)
-      .then((response) => {
-        this.groupStatus = 'loaded'
+      .then(() => {
+        this.groupStatus = 'loaded';
       }).catch(() => {
-         this.groupStatus = 'error'
+        this.groupStatus = 'error';
       });
-    this.groupInvitationStatus = 'requested'
+    this.groupInvitationStatus = 'requested';
     this.$store.dispatch('fetchGroupInvitations')
-      .then((response) => {
-        this.groupInvitationStatus = 'loaded'
+      .then(() => {
+        this.groupInvitationStatus = 'loaded';
       }).catch(() => {
-         this.groupInvitationStatus = 'error'
+        this.groupInvitationStatus = 'error';
       });
   },
 };
