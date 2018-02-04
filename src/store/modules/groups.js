@@ -59,13 +59,17 @@ const actions = {
       });
   },
   fetchGroup({ commit, rootGetters }, groupId) {
-    groupApi.getGroup(rootGetters.requestHeaders, groupId)
-      .then((response) => {
-        commit(types.UPDATE_GROUP, response.data.group);
-      })
-      .catch((error) => {
-        commit(types.ADD_ERROR, error);
-      });
+    return new Promise((resolve, reject) => {
+      groupApi.getGroup(rootGetters.requestHeaders, groupId)
+        .then((response) => {
+          commit(types.UPDATE_GROUP, response.data.group);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(types.ADD_ERROR, error);
+          reject(error);
+        });
+    });
   },
   fetchGroups({ commit, rootGetters }) {
     groupApi.getIndex(rootGetters.requestHeaders)
@@ -77,13 +81,17 @@ const actions = {
       });
   },
   fetchGroupInvitations({ commit, rootGetters }) {
-    groupInvitationApi.getIndex(rootGetters.requestHeaders)
-      .then((response) => {
-        commit(types.UPDATE_ALL_GROUP_INVITATIONS, response.data.group_invitations);
-      })
-      .catch((error) => {
-        commit(types.ADD_ERROR, error);
-      });
+    return new Promise((resolve, reject) => {
+      groupInvitationApi.getIndex(rootGetters.requestHeaders)
+        .then((response) => {
+          commit(types.UPDATE_ALL_GROUP_INVITATIONS, response.data.group_invitations);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(types.ADD_ERROR, error);
+          reject(error);
+        });
+    });
   },
   requestGroupMembership({ commit, rootGetters }, { userId, groupId }) {
     groupInvitationApi.requestMembership(rootGetters.requestHeaders, userId, groupId)

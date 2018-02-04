@@ -4,13 +4,21 @@
     <div v-if="groupInStore" class="container col-xs-6 col-xs-offset-3">
       <h1>{{ name }}</h1>
       <dd>{{ description }}</dd>
-      <router-link v-if="userCanAccessSettings" :to="{ name: 'GroupSettings', params: { id: groupId }}">Settings</router-link>
-      <br>
-      <group-relation-button v-bind:group="currentGroup"/>
-      <div v-if="ownerLoaded">
+      <template v-if="groupLoaded">
+        <router-link v-if="userCanAccessSettings" :to="{ name: 'GroupSettings', params: { id: groupId }}">Settings</router-link>
+        <br>
+        <template v-if="groupInvitationsLoaded">
+          <group-relation-button v-bind:group="currentGroup"/>
+        </template>
+        <template v-else>
+          <p>Loading your relation to group...</p>
+        </template>
         <dt>Owner</dt>
         <dd>{{ owner.name }}</dd>
-      </div>
+      </template>
+      <template v-else>
+        <p>Loading Group Information...</p>
+      </template>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -18,9 +26,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users">
-            <th scope="row">{{ user.name }}</th>
-          </tr>
+          <template v-if="groupLoaded">
+            <tr v-for="user in users">
+              <th scope="row">{{ user.name }}</th>
+            </tr>
+          </template>
+          <template v-else>
+            <tr>
+              <th scope="row">Loading Members...</th>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -38,6 +53,12 @@ export default {
     AppNav,
     GroupRelationButton,
   },
+  data() {
+    return {
+      groupStatus: 'notRequested',
+      groupInvitationStatus: 'notRequested',
+    };
+  },
   computed: {
     groupId: function () {
       return this.$route.params.id;
@@ -51,6 +72,12 @@ export default {
     },
     description: function () {
       return this.currentGroup.description;
+    },
+    groupLoaded: function () {
+      return this.groupStatus === 'loaded';
+    },
+    groupInvitationsLoaded: function () {
+      return this.groupInvitationStatus == 'loaded';
     },
     name: function () {
       return this.currentGroup.name;
@@ -69,8 +96,20 @@ export default {
     },
   },
   mounted: function afterMount() {
-    this.$store.dispatch('fetchGroup', this.groupId);
-    this.$store.dispatch('fetchGroupInvitations');
+    this.groupStatus = 'requested'
+    this.$store.dispatch('fetchGroup', this.groupId)
+      .then((response) => {
+        this.groupStatus = 'loaded'
+      }).catch(() => {
+         this.groupStatus = 'error'
+      });
+    this.groupInvitationStatus = 'requested'
+    this.$store.dispatch('fetchGroupInvitations')
+      .then((response) => {
+        this.groupInvitationStatus = 'loaded'
+      }).catch(() => {
+         this.groupInvitationStatus = 'error'
+      });
   },
 };
 </script>
