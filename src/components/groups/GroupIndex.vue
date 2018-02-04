@@ -3,6 +3,7 @@
     <app-nav></app-nav>
     <div class="container-fluid">
       <h1>All Groups</h1>
+      <router-link class="btn-sm btn-primary" :to="{ name: 'GroupCreate' }">New Group</router-link>
       <h4 v-if="noGroupsFound">No groups were found...</h4>
       <table class="table table-hover">
         <thead>
