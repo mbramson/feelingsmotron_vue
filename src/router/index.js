@@ -83,7 +83,7 @@ const router = new Router({
 });
 
 router.afterEach(() => {
-  if (store.getters.errorMessage) {
+  if (store.getters.errorResponses.length > 0) {
     store.dispatch('clearErrors');
   }
 });
