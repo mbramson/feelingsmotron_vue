@@ -39,10 +39,10 @@ export default {
       return _.find(this.$store.getters.groups, g => g.id == this.groupId) || {};
     },
     errorsForDescriptionField: function () {
-      return this.$store.getters.errorsForDescriptionField
+      return this.$store.getters.errorsForDescriptionField;
     },
     errorsForNameField: function () {
-      return this.$store.getters.errorsForNameField
+      return this.$store.getters.errorsForNameField;
     },
     groupDescription: function () {
       return this.currentGroup.description;
