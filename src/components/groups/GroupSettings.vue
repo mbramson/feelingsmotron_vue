@@ -20,6 +20,7 @@
         </div>
         <button class="btn btn-primary" v-on:click.prevent="submitGroupUpdate">Submit</button>
       </form>
+      <button class="btn btn-danger top-buffer" v-on:click.prevent="deleteGroup">Delete Group</button>
     </div>
   </div>
 </template>
@@ -67,6 +68,16 @@ export default {
     },
   },
   methods: {
+    deleteGroup: function deleteGroup() {
+      const message = 'Are you sure you want to delete this group? This action cannot be undone'
+      if (confirm(message)) {
+        this.$store.commit('CLEAR_ERRORS');
+        this.$store.dispatch('deleteGroup', this.groupId)
+          .then(() => {
+            this.$router.push('/groups');
+          }).catch(() => {});
+      }
+    },
     submitGroupUpdate: function submitGroupUpdate() {
       this.$store.commit('CLEAR_ERRORS');
       const updateParameters = { groupId: this.groupId, params: this.request_body };
