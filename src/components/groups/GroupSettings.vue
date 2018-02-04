@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     submitGroupUpdate: function submitGroupUpdate() {
+      this.$store.commit('CLEAR_ERRORS');
       const updateParameters = { groupId: this.groupId, params: this.request_body };
       this.$store.dispatch('updateGroup', updateParameters)
         .then((response) => {
