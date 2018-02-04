@@ -36,6 +36,19 @@ const actions = {
         });
     });
   },
+  deleteGroup({ commit, rootGetters }, groupId) {
+    return new Promise((resolve, reject) => {
+      groupApi.deleteGroup(rootGetters.requestHeaders, groupId)
+        .then((response) => {
+          commit(types.DELETE_GROUP, response.data.group);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(types.ADD_ERROR, error);
+          reject(error);
+        });
+    });
+  },
   deleteGroupInvitation({ commit, rootGetters }, invitationId) {
     groupInvitationApi.deleteInvitation(rootGetters.requestHeaders, invitationId)
       .then((response) => {
@@ -114,6 +127,12 @@ const mutations = {
     if (groupIndex !== -1) {
       const group = state.groups[groupIndex];
       group.users.push(newUser);
+    }
+  },
+  [types.DELETE_GROUP](state, group) {
+    const index = state.groups.findIndex(g => g.id === group.id);
+    if (index !== -1) {
+      state.groups.splice(index, 1);
     }
   },
   [types.DELETE_GROUP_INVITATION](state, invitation) {
