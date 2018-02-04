@@ -6,11 +6,11 @@
       <form>
         <div class="form-group">
           <label for="nameInput">Group Name</label>
-          <input class="form-control" id="nameInput" v-model="name" placeholder="Group Name">
+          <input class="form-control" id="nameInput" @input="updateName" :placeholder="groupName">
         </div>
         <div class="form-group">
           <label for="descriptionInput">Group Description</label>
-          <textarea class="form-control" aria-label="description" id="descriptionInput" v-model="description" rows="2" placeholder="Group Description (optional)"></textarea>
+          <textarea class="form-control" @input="updateDescription" aria-label="description" id="descriptionInput" rows="2" :placeholder="groupDescription"></textarea>
         </div>
         <button class="btn btn-primary" v-on:click.prevent="submitGroupUpdate">Submit</button>
       </form>
@@ -27,12 +27,6 @@ export default {
   components: {
     AppNav,
   },
-  data() {
-    return {
-      name: '',
-      description: '',
-    };
-  },
   computed: {
     currentGroup: function () {
       // eslint-disable-next-line eqeqeq
@@ -41,13 +35,19 @@ export default {
     groupId: function () {
       return this.$route.params.id;
     },
+    groupName: function () {
+      return this.currentGroup.name;
+    },
+    groupDescription: function () {
+      return this.currentGroup.description;
+    },
     fetchedName: function () {
       return this.currentGroup.name;
     },
     request_body: function () {
       return { group: {
-        name: this.name,
-        description: this.description,
+        name: this.$store.getters.formFieldName,
+        description: this.$store.getters.formFieldDescription,
       } };
     },
   },
@@ -56,6 +56,12 @@ export default {
       const updateParameters = { groupId: this.groupId, params: this.request_body };
       this.$store.dispatch('updateGroup', updateParameters);
     },
+    updateDescription (e) {
+      this.$store.commit('SET_FORM_DESCRIPTION_FIELD', e.target.value);
+    },
+    updateName (e) {
+      this.$store.commit('SET_FORM_NAME_FIELD', e.target.value);
+    }
   },
   mounted: function afterMount() {
     this.$store.dispatch('fetchGroup', this.groupId);
