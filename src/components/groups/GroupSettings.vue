@@ -61,7 +61,7 @@ export default {
       this.$store.dispatch('updateGroup', updateParameters)
         .then(() => {
           this.$router.push(this.groupUrl);
-        });
+        }).catch(() => {});
     },
     updateDescription(e) {
       this.$store.commit('SET_FORM_DESCRIPTION_FIELD', e.target.value);
