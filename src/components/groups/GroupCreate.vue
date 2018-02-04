@@ -1,7 +1,6 @@
 <template>
   <div class="group-create">
     <app-nav></app-nav>
-    <h4 v-if="isError">{{ error_message }}</h4>
     <div class="container col-xs-6 col-xs-offset-3">
       <h1>Create a new group</h1>
       <p>A group should encompass all of the people that you might want to aggregate data for. If you're a company, this would probably be the company name. You can always subdivide into teams and titles with labels within the group.</p>
@@ -9,13 +8,17 @@
       <form>
         <div class="form-group">
           <label for="nameInput">Group Name</label>
-          <input class="form-control" id="nameInput" v-model="name" placeholder="Group Name">
-          <div class="text-danger top-buffer">{{ nameError }}</div>
+          <input class="form-control" id="nameInput" @input="updateName" placeholder="Group Name">
+          <template v-for="error in errorsForNameField">
+            <div class="text-danger top-buffer">{{ error }}</div>
+          </template>
         </div>
         <div class="form-group">
           <label for="descriptionInput">Group Description</label>
-          <textarea class="form-control" aria-label="description" id="descriptionInput" v-model="description" rows="2" placeholder="Group Description (optional)"></textarea>
-          <div class="text-danger top-buffer">{{ descriptionError }}</div>
+          <textarea class="form-control" aria-label="description" id="descriptionInput" @input="updateDescription" rows="2" placeholder="Group Description (optional)"></textarea>
+          <template v-for="error in errorsForDescriptionField">
+            <div class="text-danger top-buffer">{{ error }}</div>
+          </template>
         </div>
         <button class="btn btn-primary" v-on:click.prevent="submitGroupCreate">Submit</button>
       </form>
@@ -24,64 +27,40 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AppNav from '../AppNav';
-
-const groupUrl = 'http://localhost:4000/api/v1/groups';
 
 export default {
   name: 'GroupCreate',
   components: {
     AppNav,
   },
-  data() {
-    return {
-      name: '',
-      description: '',
-      status: 'notSubmitted',
-      error_message: '',
-      response_errors: null,
-    };
-  },
   computed: {
-    headers: function () {
-      return this.$store.getters.requestHeaders;
-    },
     request_body: function () {
       return { group: {
-        name: this.name,
-        description: this.description,
+        name: this.$store.getters.formFieldName,
+        description: this.$store.getters.formFieldDescription,
       } };
     },
-    isError: function () {
-      return this.status === 'error';
+    errorsForDescriptionField: function () {
+      return this.$store.getters.errorsForDescriptionField;
     },
-    nameError: function () {
-      return ((this.response_errors || {}).name || [])[0];
-    },
-    descriptionError: function () {
-      return ((this.response_errors || {}).description || [])[0];
+    errorsForNameField: function () {
+      return this.$store.getters.errorsForNameField;
     },
   },
   methods: {
     submitGroupCreate: function submitGroupCreate() {
-      axios.post(
-        groupUrl,
-        this.request_body,
-        this.headers,
-        )
+      this.$store.commit('CLEAR_ERRORS');
+      this.$store.dispatch('createGroup', this.request_body)
         .then((response) => {
-          this.status = 'success';
-          this.$router.push('/groups/' + response.data.id);
-        })
-        .catch((error) => {
-          this.status = 'error';
-          if ([409, 422].includes(error.response.status)) {
-            this.response_errors = error.response.data.errors;
-          } else {
-            this.error_message = `Error creating group: ${error}`;
-          }
-        });
+          this.$router.push('/groups/' + response.data.group.id);
+        }).catch(() => {});
+    },
+    updateDescription(e) {
+      this.$store.commit('SET_FORM_DESCRIPTION_FIELD', e.target.value);
+    },
+    updateName(e) {
+      this.$store.commit('SET_FORM_NAME_FIELD', e.target.value);
     },
   },
 };

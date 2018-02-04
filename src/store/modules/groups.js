@@ -25,7 +25,7 @@ const actions = {
   },
   createGroup({ commit, rootGetters }, params) {
     return new Promise((resolve, reject) => {
-      groupApi.createGroup(rootGetters.request_headers, params)
+      groupApi.createGroup(rootGetters.requestHeaders, params)
         .then((response) => {
           commit(types.ADD_GROUP, response.data.group);
           resolve(response);
