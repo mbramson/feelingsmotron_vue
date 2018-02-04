@@ -1,8 +1,10 @@
 export const ADD_ERROR = 'ADD_ERROR';
+export const ADD_GROUP = 'ADD_GROUP';
 export const ADD_GROUP_INVITATION = 'ADD_GROUP_INVITATION';
 export const ADD_USER_TO_GROUP = 'ADD_USER_TO_GROUP';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const CLEAR_FORM_DATA = 'CLEAR_FORM_DATA';
+export const CREATE_GROUP = 'CREATE_GROUP';
 export const DELETE_GROUP_INVITATION = 'DELETE_GROUP_INVITATION';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT = 'LOGOUT';
@@ -18,6 +20,7 @@ export const UPDATE_GROUP = 'UPDATE_GROUP';
 
 export default {
   ADD_ERROR,
+  ADD_GROUP,
   ADD_GROUP_INVITATION,
   ADD_USER_TO_GROUP,
   CLEAR_ERRORS,

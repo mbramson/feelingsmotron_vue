@@ -10,6 +10,9 @@ export default {
     const url = groupUrl + `/${groupId}`;
     return axios.get(url, headers);
   },
+  createGroup(headers, params) {
+    return axios.post(groupUrl, params, headers);
+  },
   updateGroup(headers, groupId, params) {
     const url = groupUrl + `/${groupId}`;
     return axios.put(url, params, headers);

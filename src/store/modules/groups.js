@@ -23,6 +23,19 @@ const actions = {
         commit(types.ADD_ERROR, error);
       });
   },
+  createGroup({ commit, rootGetters }, params) {
+    return new Promise((resolve, reject) => {
+      groupApi.createGroup(rootGetters.request_headers, params)
+        .then((response) => {
+          commit(types.ADD_GROUP, response.data.group);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(types.ADD_ERROR, error);
+          reject(error);
+        });
+    });
+  },
   deleteGroupInvitation({ commit, rootGetters }, invitationId) {
     groupInvitationApi.deleteInvitation(rootGetters.requestHeaders, invitationId)
       .then((response) => {
@@ -84,6 +97,9 @@ const actions = {
 };
 
 const mutations = {
+  [types.ADD_GROUP](state, group) {
+    state.groups.push(group);
+  },
   [types.ADD_GROUP_INVITATION](state, invitation) {
     const index = state.invitations.findIndex(i => i.id === invitation.id);
     if (index === -1) {
