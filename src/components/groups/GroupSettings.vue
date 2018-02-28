@@ -2,7 +2,8 @@
   <div class="group-create">
     <app-nav></app-nav>
     <div class="container col-xs-6 col-xs-offset-3">
-      <h1>Edit Group: {{ fetchedName }}</h1>
+      <h1>Edit Group</h1>
+      <h2>{{ fetchedName }}</h2>
       <form>
         <div class="form-group">
           <label for="nameInput">Group Name</label>
@@ -100,6 +101,13 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-weight: normal;
+  margin: 30px 0px 20px 0;
+}
+h2 {
+  margin-bottom: 20px;
+}
 .top-buffer {
   margin-top:10px;
 }

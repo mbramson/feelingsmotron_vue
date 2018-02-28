@@ -21,8 +21,7 @@
             <input type="password" autocomplete="new-password" class="form-control" id="passwordInput" v-model="password" placeholder="password">
             <div class="text-danger top-buffer">{{ passwordError }}</div>
           </div>
-          <br>
-          <button class="btn btn-primary" v-on:click.prevent="submitSignup">Submit</button>
+          <button class="btn btn-primary top-buffer" v-on:click.prevent="submitSignup">Sign up</button>
         </form>
       </div>
     </div>
@@ -104,10 +103,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .top-buffer {
-  margin-top:10px;
+  margin-top: 15px;
 }
 h1, h2 {
   font-weight: normal;
+  margin: 30px 0px 20px 0px;
 }
 ul {
   list-style-type: none;

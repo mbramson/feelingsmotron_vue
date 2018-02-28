@@ -2,11 +2,10 @@
   <div class="group-index">
     <app-nav></app-nav>
     <div class="container-fluid">
-      <h1>All Groups</h1>
-      <router-link class="btn-sm btn-primary" :to="{ name: 'GroupCreate' }">New Group</router-link>
+      <h1>Groups</h1>
       <h4 v-if="noGroupsFound">No groups were found...</h4>
       <table class="table table-hover">
-        <thead>
+        <thead class="thead-light">
           <tr>
             <th scope="col">Group</th>
             <th scope="col">Description</th>
@@ -21,6 +20,7 @@
           </tr>
         </tbody>
       </table>
+      <router-link class="btn-sm btn-primary" :to="{ name: 'GroupCreate' }">New Group</router-link>
     </div>
   </div>
 </template>
@@ -47,3 +47,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  font-weight: normal;
+  margin: 30px 0px 20px 0;
+}
+</style>

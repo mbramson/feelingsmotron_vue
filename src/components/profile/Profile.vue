@@ -73,8 +73,9 @@ export default {
 </script>
 
 <style scoped>
-h1, h2 {
+h1 {
   font-weight: normal;
+  margin: 30px 0px 20px 0;
 }
 ul {
   list-style-type: none;

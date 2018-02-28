@@ -113,3 +113,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h1 {
+  font-weight: normal;
+  margin: 30px 0px 20px 0;
+}
+</style>

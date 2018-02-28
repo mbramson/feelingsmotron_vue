@@ -3,22 +3,27 @@
     <app-nav></app-nav>
     <div class="container col-xs-4 col-xs-offset-4">
       <h1 class="text-center">Feelingsmotron</h1>
-      <div id="feeling-selector" class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 1, active: selectedFeeling === 1 }">
-          <input type="radio" name="options" id="option1" autocomplete="off" @click="selectedFeeling = 1" checked>1
-        </label>
-        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 2, active: selectedFeeling === 2 }">
-          <input type="radio" name="options" id="option2" autocomplete="off" @click="selectedFeeling = 2" checked>2
-        </label>
-        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 3, active: selectedFeeling === 3 }">
-          <input type="radio" name="options" id="option3" autocomplete="off" @click="selectedFeeling = 3" checked>3
-        </label>
-        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 4, active: selectedFeeling === 4 }">
-          <input type="radio" name="options" id="option4" autocomplete="off" @click="selectedFeeling = 4" checked>4
-        </label>
-        <label class="btn btn-primary" v-bind:class="{ 'btn-success' : feeling === 5, active: selectedFeeling === 5 }">
-          <input type="radio" name="options" id="option5" autocomplete="off" @click="selectedFeeling = 5" checked>5
-        </label>
+      <div id="selector" class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" 
+          v-bind:class="{ 'btn-success' : feeling === 1, active: selectedFeeling === 1 }"
+          @click="selectedFeeling = 1"
+        >1</button>
+        <button type="button" class="btn btn-primary" 
+          v-bind:class="{ 'btn-success' : feeling === 2, active: selectedFeeling === 2 }"
+          @click="selectedFeeling = 2"
+        >2</button>
+        <button type="button" class="btn btn-primary" 
+          v-bind:class="{ 'btn-success' : feeling === 3, active: selectedFeeling === 3 }"
+          @click="selectedFeeling = 3"
+        >3</button>
+        <button type="button" class="btn btn-primary" 
+          v-bind:class="{ 'btn-success' : feeling === 4, active: selectedFeeling === 4 }"
+          @click="selectedFeeling = 4"
+        >4</button>
+        <button type="button" class="btn btn-primary" 
+          v-bind:class="{ 'btn-success' : feeling === 5, active: selectedFeeling === 5 }"
+          @click="selectedFeeling = 5"
+        >5</button>
       </div>
       <div id="comment-field" class="form-group">
         <textarea class="form-control" aria-label="comment" id="commentInput" v-model="comment" rows="3" placeholder="Leave a comment (optional)"></textarea>
@@ -97,6 +102,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  margin: 30px 0px 20px 0;
 }
 #comment-field {
   margin-top: 30px;

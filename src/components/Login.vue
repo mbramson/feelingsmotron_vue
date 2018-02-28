@@ -14,9 +14,10 @@
             <label for="passwordInput">Password</label>
             <input type="password" autocomplete="current-password" class="form-control" id="form-group" v-model="password" placeholder="password">
           </div>
-          <button type="submit" class="btn btn-primary" v-on:click.prevent="submitLogin">Submit</button>
-          <br>
-          <router-link to="/signup"> Not a member? Sign up! </router-link>
+          <button type="submit" class="btn btn-primary top-buffer" v-on:click.prevent="submitLogin">Login</button>
+          <p class="top-buffer">
+            <router-link to="/signup"> Not a member? Sign up! </router-link>
+          </p>
         </form>
       </div>
     </div>
@@ -87,6 +88,10 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  margin: 30px 0px 20px 0px;
+}
+.top-buffer {
+  margin-top: 15px;
 }
 ul {
   list-style-type: none;
